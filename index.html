@@ -105,12 +105,60 @@
                 <h2 class="section-title">Latest Projects</h2>
                 <p class="section-sub">A selection of things I've built and shipped.</p>
             </div>
-            <div class="project-grid" id="projectGrid">
-            </div>
-            <div class="add-project-wrapper">
-                <button class="btn primary add-project-btn" id="addProjectBtn">
-                    <i class="fas fa-plus"></i> Add Project
-                </button>
+            <div class="project-grid">
+                <article class="project-card reveal">
+                    <div class="project-image">
+                        <div class="overlay">
+                            <span><i class="fas fa-arrow-up-right-from-square"></i> View Demo</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=700&q=80" alt="Teacher Management Portal">
+                        <div class="project-tag">Web App</div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Teacher Management Portal</h3>
+                        <p>An AI-powered dashboard for educators at PHINMA University of Iloilo that streamlines classroom management, attendance tracking, and student performance analytics with real-time Supabase sync.</p>
+                        <div class="tech-used">
+                            <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Flask</span><span>Supabase</span>
+                        </div>
+                        <a href="https://github.com/mark-12-fr/teacher-panel" target="_blank" class="demo-btn">View Repo <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-image">
+                        <div class="overlay">
+                            <span><i class="fas fa-arrow-up-right-from-square"></i> View Demo</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=80" alt="Facilitator Dashboard">
+                        <div class="project-tag">Web App</div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Facilitator Dashboard</h3>
+                        <p>A mobile-first dashboard for facilitators to manage students, track attendance, monitor module/activity submissions, and view class performance — companion app to the Teacher Panel.</p>
+                        <div class="tech-used">
+                            <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Supabase</span>
+                        </div>
+                        <a href="https://github.com/mark-12-fr/faci-panel" target="_blank" class="demo-btn">View Repo <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <div class="project-image">
+                        <div class="overlay">
+                            <span><i class="fas fa-arrow-up-right-from-square"></i> View Demo</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=700&q=80" alt="Pulse Messenger">
+                        <div class="project-tag">Web App</div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Pulse Messenger</h3>
+                        <p>A real-time messenger app with secure auth, friend system, media uploads, live chat via Socket.IO, online presence, typing indicators, and daily auto-clearing chats.</p>
+                        <div class="tech-used">
+                            <span>Flask</span><span>Socket.IO</span><span>PostgreSQL</span><span>Supabase</span><span>JWT</span>
+                        </div>
+                        <a href="https://github.com/mark-12-fr/pulse-messenger" target="_blank" class="demo-btn">View Repo <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -170,44 +218,6 @@
             </div>
         </div>
     </section>
-
-    <!-- ===== ADD PROJECT MODAL ===== -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>Add New Project</h3>
-                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
-            </div>
-            <form id="projectForm" class="modal-form">
-                <div class="form-group">
-                    <label for="projTitle">Project Title</label>
-                    <input type="text" id="projTitle" placeholder="My Awesome Project" required>
-                </div>
-                <div class="form-group">
-                    <label for="projDesc">Description</label>
-                    <textarea id="projDesc" rows="3" placeholder="Describe your project..." required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="projImage">Image URL</label>
-                    <input type="url" id="projImage" placeholder="https://example.com/image.jpg">
-                </div>
-                <div class="form-group">
-                    <label for="projTag">Category Tag</label>
-                    <input type="text" id="projTag" placeholder="e.g. Web App, Mobile App, API">
-                </div>
-                <div class="form-group">
-                    <label for="projTech">Tech Used (comma separated)</label>
-                    <input type="text" id="projTech" placeholder="React, Node.js, MongoDB">
-                </div>
-                <div class="form-group">
-                    <label for="projLink">Live Demo Link</label>
-                    <input type="url" id="projLink" placeholder="https://myproject.com">
-                </div>
-                <button type="submit" class="btn primary submit-btn">Add Project <i class="fas fa-plus"></i></button>
-                <p id="modal-status" class="form-status"></p>
-            </form>
-        </div>
-    </div>
 
     <!-- ===== FOOTER ===== -->
     <footer>
