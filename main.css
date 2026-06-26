@@ -389,6 +389,10 @@ body {
     border: 1px solid rgba(59,130,246,0.2);
 }
 
+.project-links {
+    display: flex; align-items: center; gap: 10px;
+}
+
 .demo-btn {
     color: var(--text); font-weight: 700; text-decoration: none;
     font-size: 0.88rem;
@@ -398,6 +402,15 @@ body {
 .demo-btn i { font-size: 0.75rem; transition: transform 0.3s; color: var(--primary); }
 .demo-btn:hover { color: var(--primary); }
 .demo-btn:hover i { transform: translate(3px, -3px); }
+
+.github-link {
+    padding: 6px 10px; border-radius: 8px;
+    background: var(--bg-2); border: 1px solid var(--border);
+    font-size: 1rem;
+}
+.github-link i { font-size: 1rem; }
+.github-link:hover { border-color: var(--primary); }
+.github-link:hover i { transform: none; }
 
 /* --- CONTACT SECTION --- */
 .contact-section {
