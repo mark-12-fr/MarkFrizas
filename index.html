@@ -105,42 +105,12 @@
                 <h2 class="section-title">Latest Projects</h2>
                 <p class="section-sub">A selection of things I've built and shipped.</p>
             </div>
-            <div class="project-grid">
-                <article class="project-card reveal">
-                    <div class="project-image">
-                        <div class="overlay">
-                            <span><i class="fas fa-arrow-up-right-from-square"></i> View Demo</span>
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=700&q=80" alt="Edubio Website">
-                        <div class="project-tag">Web App</div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Edubio Website</h3>
-                        <p>Scalable web architecture with real-time data processing and a clean educational interface.</p>
-                        <div class="tech-used">
-                            <span>React</span><span>Node.js</span><span>MongoDB</span>
-                        </div>
-                        <a href="#" class="demo-btn">Live Preview <i class="fas fa-external-link-alt"></i></a>
-                    </div>
-                </article>
-
-                <article class="project-card reveal">
-                    <div class="project-image">
-                        <div class="overlay">
-                            <span><i class="fas fa-arrow-up-right-from-square"></i> View Demo</span>
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=80" alt="Attendance App">
-                        <div class="project-tag">Mobile App</div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Attendance Mobile App</h3>
-                        <p>Streamlined attendance tracking with a focus on user experience and sleek animations.</p>
-                        <div class="tech-used">
-                            <span>React Native</span><span>Firebase</span>
-                        </div>
-                        <a href="#" class="demo-btn">Live Preview <i class="fas fa-external-link-alt"></i></a>
-                    </div>
-                </article>
+            <div class="project-grid" id="projectGrid">
+            </div>
+            <div class="add-project-wrapper">
+                <button class="btn primary add-project-btn" id="addProjectBtn">
+                    <i class="fas fa-plus"></i> Add Project
+                </button>
             </div>
         </div>
     </section>
@@ -200,6 +170,44 @@
             </div>
         </div>
     </section>
+
+    <!-- ===== ADD PROJECT MODAL ===== -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add New Project</h3>
+                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="projectForm" class="modal-form">
+                <div class="form-group">
+                    <label for="projTitle">Project Title</label>
+                    <input type="text" id="projTitle" placeholder="My Awesome Project" required>
+                </div>
+                <div class="form-group">
+                    <label for="projDesc">Description</label>
+                    <textarea id="projDesc" rows="3" placeholder="Describe your project..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="projImage">Image URL</label>
+                    <input type="url" id="projImage" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-group">
+                    <label for="projTag">Category Tag</label>
+                    <input type="text" id="projTag" placeholder="e.g. Web App, Mobile App, API">
+                </div>
+                <div class="form-group">
+                    <label for="projTech">Tech Used (comma separated)</label>
+                    <input type="text" id="projTech" placeholder="React, Node.js, MongoDB">
+                </div>
+                <div class="form-group">
+                    <label for="projLink">Live Demo Link</label>
+                    <input type="url" id="projLink" placeholder="https://myproject.com">
+                </div>
+                <button type="submit" class="btn primary submit-btn">Add Project <i class="fas fa-plus"></i></button>
+                <p id="modal-status" class="form-status"></p>
+            </form>
+        </div>
+    </div>
 
     <!-- ===== FOOTER ===== -->
     <footer>

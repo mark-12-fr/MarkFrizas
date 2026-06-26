@@ -120,7 +120,147 @@ if (form) {
 }
 
 
-// ─── 5. SMOOTH SCROLL for anchor links ───────────────────────────────────────
+// ─── 5. PROJECTS: Add / Delete with localStorage ──────────────────────────────
+
+const STORAGE_KEY = 'mf_projects';
+
+const defaultProjects = [
+    {
+        id: 'default-1',
+        title: 'Edubio Website',
+        description: 'Scalable web architecture with real-time data processing and a clean educational interface.',
+        image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=700&q=80',
+        tag: 'Web App',
+        tech: ['React', 'Node.js', 'MongoDB'],
+        link: '#'
+    },
+    {
+        id: 'default-2',
+        title: 'Attendance Mobile App',
+        description: 'Streamlined attendance tracking with a focus on user experience and sleek animations.',
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&q=80',
+        tag: 'Mobile App',
+        tech: ['React Native', 'Firebase'],
+        link: '#'
+    }
+];
+
+function getProjects() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) return JSON.parse(stored);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultProjects));
+    return defaultProjects;
+}
+
+function saveProjects(projects) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+}
+
+function renderProjects() {
+    const grid = document.getElementById('projectGrid');
+    if (!grid) return;
+    const projects = getProjects();
+    grid.innerHTML = projects.map(p => `
+        <article class="project-card reveal">
+            <div class="project-image">
+                <div class="overlay">
+                    <span><i class="fas fa-arrow-up-right-from-square"></i> View Demo</span>
+                </div>
+                <img src="${p.image || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=700&q=80'}" alt="${p.title}">
+                ${p.tag ? `<div class="project-tag">${p.tag}</div>` : ''}
+            </div>
+            <div class="project-info">
+                <h3>${p.title}</h3>
+                <p>${p.description}</p>
+                <div class="tech-used">
+                    ${(p.tech || []).map(t => `<span>${t.trim()}</span>`).join('')}
+                </div>
+                <div style="display:flex;gap:12px;align-items:center;justify-content:space-between;">
+                    <a href="${p.link || '#'}" class="demo-btn" target="_blank">Live Preview <i class="fas fa-external-link-alt"></i></a>
+                    ${p.id && !p.id.startsWith('default-') ? `<button class="delete-btn" data-id="${p.id}"><i class="fas fa-trash"></i> Delete</button>` : ''}
+                </div>
+            </div>
+        </article>
+    `).join('');
+
+    // Re-observe reveal animations for new cards
+    document.querySelectorAll('.project-card.reveal').forEach(el => revealObserver.observe(el));
+
+    // Delete handlers
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.dataset.id;
+            let projects = getProjects();
+            projects = projects.filter(p => p.id !== id);
+            saveProjects(projects);
+            renderProjects();
+        });
+    });
+}
+
+// ─── Modal Logic ──────────────────────────────────────────────────────────────
+
+const modalOverlay = document.getElementById('modalOverlay');
+const addProjectBtn = document.getElementById('addProjectBtn');
+const modalClose = document.getElementById('modalClose');
+const projectForm = document.getElementById('projectForm');
+const modalStatus = document.getElementById('modal-status');
+
+function openModal() {
+    modalOverlay.classList.add('open');
+    modalStatus.textContent = '';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    modalOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+    projectForm.reset();
+}
+
+if (addProjectBtn) addProjectBtn.addEventListener('click', openModal);
+if (modalClose) modalClose.addEventListener('click', closeModal);
+if (modalOverlay) modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+});
+
+if (projectForm) {
+    projectForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const title = document.getElementById('projTitle').value.trim();
+        const desc = document.getElementById('projDesc').value.trim();
+        const image = document.getElementById('projImage').value.trim();
+        const tag = document.getElementById('projTag').value.trim();
+        const techRaw = document.getElementById('projTech').value.trim();
+        const link = document.getElementById('projLink').value.trim();
+
+        if (!title || !desc) {
+            modalStatus.textContent = 'Title and description are required.';
+            modalStatus.style.color = '#f87171';
+            return;
+        }
+
+        const projects = getProjects();
+        const newProject = {
+            id: 'proj-' + Date.now(),
+            title,
+            description: desc,
+            image: image || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=700&q=80',
+            tag: tag || 'Project',
+            tech: techRaw ? techRaw.split(',').map(s => s.trim()).filter(Boolean) : [],
+            link: link || '#'
+        };
+        projects.push(newProject);
+        saveProjects(projects);
+        renderProjects();
+        closeModal();
+    });
+}
+
+// Init
+renderProjects();
+
+// ─── 6. SMOOTH SCROLL for anchor links ───────────────────────────────────────
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
