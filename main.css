@@ -507,6 +507,11 @@ body {
     color: #fbbf24;
     border: 1px solid rgba(251,191,36,0.3);
 }
+.project-status.prod {
+    background: rgba(251,191,36,0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(251,191,36,0.3);
+}
 
 .project-info { padding: 28px; }
 .project-info h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 10px; }
