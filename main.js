@@ -75,49 +75,7 @@ const sectionObserver = new IntersectionObserver(
 sections.forEach(s => sectionObserver.observe(s));
 
 
-// ─── 4. CONTACT FORM (AJAX via Formspree) ─────────────────────────────────────
-
-const form    = document.getElementById('contact-form');
-const status  = document.getElementById('form-status');
-const btnText = document.getElementById('btn-text');
-const btnIcon = document.getElementById('btn-icon');
-
-if (form) {
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        // Loading state
-        btnText.textContent = 'Sending...';
-        btnIcon.className   = 'fas fa-spinner fa-spin';
-        status.textContent  = '';
-
-        try {
-            const response = await fetch(form.action, {
-                method:  form.method,
-                body:    new FormData(form),
-                headers: { 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-                status.style.color  = '#34d399';        /* green */
-                status.textContent  = '✓ Message sent! I\'ll get back to you soon.';
-                form.reset();
-            } else {
-                const data = await response.json();
-                const msg  = data?.errors?.map(e => e.message).join(', ') || 'Something went wrong.';
-                status.style.color = '#f87171';         /* red */
-                status.textContent = '✗ ' + msg;
-            }
-        } catch {
-            status.style.color = '#f87171';
-            status.textContent = '✗ Network error. Please try again.';
-        } finally {
-            // Restore button
-            btnText.textContent = 'Send Message';
-            btnIcon.className   = 'fas fa-paper-plane';
-        }
-    });
-}
+// ─── 4. CONTACT - mailto link (no JS needed) ──────────────────────────────────
 
 
 // ─── 5. SMOOTH SCROLL for anchor links ───────────────────────────────────────
