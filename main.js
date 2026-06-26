@@ -8,18 +8,15 @@ const navbar    = document.getElementById('navbar');
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 
-// Shrink nav on scroll
 window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
 });
 
-// Toggle mobile menu
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('open');
     mobileMenu.classList.toggle('open');
 });
 
-// Close mobile menu when a link is clicked
 document.querySelectorAll('.mob-link').forEach(link => {
     link.addEventListener('click', () => {
         hamburger.classList.remove('open');
@@ -27,15 +24,13 @@ document.querySelectorAll('.mob-link').forEach(link => {
     });
 });
 
-
 // ─── 2. REVEAL ANIMATIONS on scroll ──────────────────────────────────────────
 
 const revealObserver = new IntersectionObserver(
     (entries) => {
-        entries.forEach((entry, index) => {
+        entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                // Stagger child cards within a grid when parent becomes visible
-                const children = entry.target.querySelectorAll('.skill-card, .project-card, .contact-item');
+                const children = entry.target.querySelectorAll('.skill-card, .project-card, .contact-item, .timeline-item, .testimonial-card');
                 if (children.length) {
                     children.forEach((child, i) => {
                         setTimeout(() => child.classList.add('active'), i * 80);
@@ -52,7 +47,6 @@ const revealObserver = new IntersectionObserver(
 document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
     revealObserver.observe(el);
 });
-
 
 // ─── 3. ACTIVE NAV LINK highlight on scroll ───────────────────────────────────
 
@@ -74,7 +68,6 @@ const sectionObserver = new IntersectionObserver(
 
 sections.forEach(s => sectionObserver.observe(s));
 
-
 // ─── 4. SMOOTH SCROLL for anchor links ───────────────────────────────────────
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -88,3 +81,155 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// ─── 5. THEME TOGGLE (Dark/Light) ────────────────────────────────────────────
+
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon   = themeToggle?.querySelector('i');
+
+function setTheme(mode) {
+    document.body.classList.toggle('light-mode', mode === 'light');
+    localStorage.setItem('mf_theme', mode);
+    if (themeIcon) {
+        themeIcon.className = mode === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+}
+
+const savedTheme = localStorage.getItem('mf_theme');
+if (savedTheme) setTheme(savedTheme);
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const isLight = document.body.classList.contains('light-mode');
+        setTheme(isLight ? 'dark' : 'light');
+    });
+}
+
+// ─── 6. TYPEWRITER EFFECT ────────────────────────────────────────────────────
+
+const typewriterEl = document.getElementById('typewriter');
+if (typewriterEl) {
+    const words = ['Full-Stack Developer', 'Founder of MJR Vertex', 'AcadTrack Creator'];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function type() {
+        const current = words[wordIndex];
+        if (isDeleting) {
+            charIndex--;
+        } else {
+            charIndex++;
+        }
+
+        typewriterEl.textContent = current.substring(0, charIndex);
+
+        if (!isDeleting && charIndex === current.length) {
+            setTimeout(() => { isDeleting = true; type(); }, 2000);
+            return;
+        }
+
+        if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            setTimeout(type, 400);
+            return;
+        }
+
+        setTimeout(type, isDeleting ? 40 : 80);
+    }
+
+    type();
+}
+
+// ─── 7. PARTICLES BACKGROUND ─────────────────────────────────────────────────
+
+const canvas = document.getElementById('particles-canvas');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animId;
+
+    function resize() {
+        canvas.width = canvas.parentElement.offsetWidth;
+        canvas.height = canvas.parentElement.offsetHeight;
+    }
+
+    class Particle {
+        constructor() { this.reset(); }
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.4;
+            this.speedY = (Math.random() - 0.5) * 0.4;
+            this.opacity = Math.random() * 0.4 + 0.1;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                this.reset();
+            }
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(59, 130, 246, ${this.opacity})`;
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        const count = Math.min(Math.floor(canvas.width * canvas.height / 12000), 50);
+        particles = Array.from({ length: count }, () => new Particle());
+    }
+
+    function drawConnections() {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(59, 130, 246, ${0.06 * (1 - dist / 150)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        drawConnections();
+        animId = requestAnimationFrame(animate);
+    }
+
+    resize();
+    initParticles();
+    animate();
+
+    window.addEventListener('resize', () => {
+        resize();
+        initParticles();
+    });
+}
+
+// ─── 8. STATS COUNTER ────────────────────────────────────────────────────────
+
+const statNumbers = document.querySelectorAll('.stat-number');
+if (statNumbers.length) {
+    const countObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                countObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    statNumbers.forEach(s => countObserver.observe(s));
+}

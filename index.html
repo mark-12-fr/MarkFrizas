@@ -27,9 +27,14 @@
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">Stack</a></li>
                 <li><a href="#about-me" class="nav-link">About</a></li>
+                <li><a href="#timeline" class="nav-link">Journey</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
             <button class="hamburger" id="hamburger" aria-label="Open menu">
                 <span></span><span></span><span></span>
             </button>
@@ -40,7 +45,9 @@
                 <li><a href="#home" class="mob-link">Home</a></li>
                 <li><a href="#about" class="mob-link">Stack</a></li>
                 <li><a href="#about-me" class="mob-link">About</a></li>
+                <li><a href="#timeline" class="mob-link">Journey</a></li>
                 <li><a href="#projects" class="mob-link">Projects</a></li>
+                <li><a href="#testimonials" class="mob-link">Testimonials</a></li>
                 <li><a href="#contact" class="mob-link">Contact</a></li>
             </ul>
         </div>
@@ -48,6 +55,7 @@
 
     <!-- ===== HERO ===== -->
     <header id="home" class="hero">
+        <canvas id="particles-canvas"></canvas>
         <div class="hero-bg-grid"></div>
         <div class="hero-glow"></div>
         <div class="container hero-container">
@@ -61,7 +69,7 @@
                 </div>
             </div>
             <div class="hero-text reveal-right">
-                <p class="eyebrow"><span class="mono">&lt;</span> Full-Stack Developer <span class="mono">/&gt;</span></p>
+                <p class="eyebrow"><span class="mono">&lt;</span> <span id="typewriter"></span><span class="cursor">|</span> <span class="mono">/&gt;</span></p>
                 <h1>Hi, I'm<br><span class="name-highlight">Mark Frizas</span></h1>
                 <p class="description">
                     A dedicated Full-Stack Developer focused on building
@@ -137,11 +145,56 @@
         </div>
     </section>
 
+    <!-- ===== TIMELINE ===== -->
+    <section id="timeline" class="timeline-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-tag mono">04. journey</p>
+                <h2 class="section-title">My Path</h2>
+                <p class="section-sub">Milestones that shaped my career.</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2026 — Present</div>
+                    <div class="timeline-content">
+                        <h3>Founder — MJR Vertex</h3>
+                        <p>Building production-grade academic management systems deployed across Visayas. Leading product development, client relations, and deployment of AcadTrack — an AI-powered platform handling enrollment, grading, and analytics.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2026</div>
+                    <div class="timeline-content">
+                        <h3>AcadTrack @ INNOVEX 2026</h3>
+                        <p>Showcased AcadTrack at the 2nd INNOVEX International Conference — a university-wide innovation event featuring cutting-edge academic technology solutions.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2025 — 2026</div>
+                    <div class="timeline-content">
+                        <h3>Full-Stack Developer — PHINMA University</h3>
+                        <p>Developed the Teacher Management Portal and Facilitator Dashboard — real-time analytics tools with Supabase sync used by educators and facilitators across the university.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-content">
+                        <h3>Pulse Messenger — Real-time Chat Platform</h3>
+                        <p>Built a full-featured real-time messenger with Socket.IO, JWT auth, friend system, file uploads, and daily auto-clearing chats — deployed on Render + Vercel.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== PROJECTS ===== -->
     <section id="projects" class="projects-section">
         <div class="container">
             <div class="section-header reveal">
-                <p class="section-tag mono">04. work</p>                <h2 class="section-title">Latest Projects</h2>
+                <p class="section-tag mono">05. work</p>                <h2 class="section-title">Latest Projects</h2>
                 <p class="section-sub">A selection of things I've built and shipped.</p>
             </div>
             <div class="project-grid">
@@ -152,6 +205,7 @@
                         </div>
                         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&q=80" alt="Teacher Management Portal">
                         <div class="project-tag">Web App</div>
+                        <span class="project-status live">Live</span>
                     </div>
                     <div class="project-info">
                         <h3>Teacher Management Portal</h3>
@@ -173,6 +227,7 @@
                         </div>
                         <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=700&q=80" alt="Facilitator Dashboard">
                         <div class="project-tag">Web App</div>
+                        <span class="project-status live">Live</span>
                     </div>
                     <div class="project-info">
                         <h3>Facilitator Dashboard</h3>
@@ -194,6 +249,7 @@
                         </div>
                         <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=700&q=80" alt="Pulse Messenger">
                         <div class="project-tag">Web App</div>
+                        <span class="project-status live">Live</span>
                     </div>
                     <div class="project-info">
                         <h3>Pulse Messenger</h3>
@@ -215,6 +271,7 @@
                         </div>
                         <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=700&q=80" alt="Edubio Web System">
                         <div class="project-tag">Web App</div>
+                        <span class="project-status dev">In Development</span>
                     </div>
                     <div class="project-info">
                         <h3>Edubio Web System</h3>
@@ -233,6 +290,7 @@
                         </div>
                         <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=700&q=80" alt="Attendance App">
                         <div class="project-tag">Mobile App</div>
+                        <span class="project-status dev">In Development</span>
                     </div>
                     <div class="project-info">
                         <h3>Attendance App</h3>
@@ -247,12 +305,64 @@
         </div>
     </section>
 
+    <!-- ===== TESTIMONIALS ===== -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-tag mono">06. feedback</p>
+                <h2 class="section-title">What People Say</h2>
+                <p class="section-sub">Kind words from clients and collaborators.</p>
+            </div>
+            <div class="testimonials-grid reveal">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"Mark delivered a robust attendance tracking system that streamlined our entire process. His attention to security and clean code made deployment effortless."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <div>
+                            <strong>Client</strong>
+                            <span>Educational Institution</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"Working with Mark on the teacher dashboard was a great experience. He understood our requirements quickly and delivered beyond expectations."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <div>
+                            <strong>Collaborator</strong>
+                            <span>PHINMA University</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"The real-time messaging platform Mark built is impressive — socket-based, reliable, and beautifully designed. He truly understands full-stack development."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <div>
+                            <strong>Peer Developer</strong>
+                            <span>Tech Community</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== CONTACT ===== -->
     <section id="contact" class="contact-section">
         <div class="contact-glow"></div>
         <div class="container">
             <div class="section-header reveal">
-                <p class="section-tag mono">05. contact</p>                <h2 class="section-title">Let's Connect</h2>
+                <p class="section-tag mono">07. contact</p>                <h2 class="section-title">Let's Connect</h2>
                 <p class="section-sub">Have a project in mind or just want to talk tech? Reach out.</p>
             </div>
             <div class="contact-wrapper reveal">
