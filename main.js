@@ -75,10 +75,7 @@ const sectionObserver = new IntersectionObserver(
 sections.forEach(s => sectionObserver.observe(s));
 
 
-// ─── 4. CONTACT - mailto link (no JS needed) ──────────────────────────────────
-
-
-// ─── 5. SMOOTH SCROLL for anchor links ───────────────────────────────────────
+// ─── 4. SMOOTH SCROLL for anchor links ───────────────────────────────────────
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {

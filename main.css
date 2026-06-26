@@ -321,6 +321,76 @@ body {
 .skill-card.security:hover { border-color: var(--danger); background: rgba(244,63,94,0.08); }
 .skill-card.security:hover i, .skill-card.security:hover span { color: var(--danger); }
 
+/* --- ABOUT SECTION --- */
+.about-section {
+    padding: 110px 0;
+    background: var(--bg);
+    position: relative;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-text p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+.about-text strong { color: var(--text); }
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.stat {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 16px;
+    text-align: center;
+    transition: var(--transition);
+}
+.stat:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 6px;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+@media (max-width: 960px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+    .about-stats { justify-items: center; }
+}
+
+@media (max-width: 640px) {
+    .about-stats { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .stat { padding: 20px 12px; }
+    .stat-number { font-size: 1.4rem; }
+}
+
 /* --- PROJECTS SECTION --- */
 .projects-section { padding: 110px 0; }
 
