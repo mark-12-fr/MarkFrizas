@@ -360,9 +360,115 @@ body {
 }
 .skill-card:hover i, .skill-card:hover span { color: var(--primary); }
 
+.skill-stars {
+    display: flex; gap: 2px; margin-top: 4px;
+}
+.skill-stars i {
+    font-size: 0.65rem; color: #fbbf24;
+}
+.skill-stars i.empty {
+    color: var(--border);
+}
+
 .skill-card.security i { color: var(--danger); }
 .skill-card.security:hover { border-color: var(--danger); background: rgba(244,63,94,0.08); }
 .skill-card.security:hover i, .skill-card.security:hover span { color: var(--danger); }
+
+/* --- SERVICES SECTION --- */
+.services-section {
+    padding: 110px 0;
+    background: var(--bg);
+    position: relative;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.service-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    transition: var(--transition);
+}
+.service-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-6px);
+    box-shadow: var(--glow);
+}
+
+.service-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: var(--primary-dim);
+    color: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 18px;
+}
+
+.service-card h3 {
+    font-size: 1.1rem; font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem; line-height: 1.7;
+}
+
+/* --- ACHIEVEMENTS SECTION --- */
+.achievements-section {
+    padding: 110px 0;
+    background: var(--bg-2);
+    position: relative;
+}
+.achievements-section::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.achievements-grid {
+    display: grid;
+    gap: 16px;
+}
+
+.achievement-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    display: flex; align-items: center; gap: 24px;
+    transition: var(--transition);
+}
+.achievement-card:hover {
+    border-color: var(--primary);
+    transform: translateX(6px);
+}
+
+.achievement-icon {
+    width: 54px; height: 54px; border-radius: 14px;
+    background: rgba(251,191,36,0.12);
+    color: #fbbf24;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+}
+
+.achievement-info h3 {
+    font-size: 1rem; font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.achievement-info p {
+    color: var(--text-muted);
+    font-size: 0.88rem; line-height: 1.6;
+}
+
+@media (max-width: 960px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .achievement-card { flex-direction: column; text-align: center; padding: 24px; }
+}
 
 /* --- ABOUT SECTION --- */
 .about-section {
