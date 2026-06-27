@@ -109,16 +109,16 @@ body {
 
 /* Theme Toggle */
 .theme-toggle {
-    background: none; border: 1px solid var(--border);
+    background: none; border: none;
     color: var(--text-muted); cursor: pointer;
-    width: 38px; height: 38px; border-radius: 10px;
+    padding: 4px;
     display: flex; align-items: center; justify-content: center;
-    transition: var(--transition); font-size: 1rem;
-    margin-left: 12px;
+    transition: var(--transition); font-size: 1.1rem;
+    margin-left: 8px; line-height: 1;
+    align-self: center;
 }
 .theme-toggle:hover {
-    color: var(--primary); border-color: var(--primary);
-    background: var(--primary-dim);
+    color: var(--primary);
 }
 
 /* Mobile Menu */
