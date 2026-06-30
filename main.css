@@ -48,12 +48,14 @@ html { scroll-behavior: smooth; }
     font-family: 'Syne', sans-serif; font-weight: 700; text-decoration: none;
     transition: top 0.2s ease;
 }
-.skip-link:focus { top: 12px; }
+.skip-link:focus-visible { top: 12px; }
 
-:focus-visible {
+/* Scope focus rings to interactive elements so component styling is untouched. */
+a:focus-visible, button:focus-visible,
+input:focus-visible, textarea:focus-visible, select:focus-visible,
+[tabindex]:focus-visible {
     outline: 2px solid var(--primary);
     outline-offset: 3px;
-    border-radius: 4px;
 }
 
 body {
