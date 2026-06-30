@@ -5,63 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <title>Mark Frizas — Resume</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%233b82f6'/><text x='50' y='68' font-size='55' font-weight='800' fill='white' text-anchor='middle'>MF</text></svg>" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231e293b'/><text x='50' y='68' font-size='55' font-weight='800' fill='white' text-anchor='middle'>MF</text></svg>" type="image/svg+xml">
     <style>
-        :root { --primary: #2563eb; --ink: #0f172a; --muted: #475569; --line: #e2e8f0; }
+        :root {
+            --ink:   #1a1a1a;
+            --muted: #555;
+            --rule:  #d4d4d4;
+            --accent:#1e293b;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            color: var(--ink); line-height: 1.5; background: #f1f5f9;
+            font-family: 'Calibri', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            color: var(--ink); line-height: 1.45; background: #e9e9ec;
+            font-size: 15px;
             -webkit-print-color-adjust: exact; print-color-adjust: exact;
         }
-        .page {
-            max-width: 820px; margin: 24px auto; background: #fff;
-            padding: 48px 56px; box-shadow: 0 10px 40px rgba(15,23,42,0.12);
-        }
-        header { border-bottom: 3px solid var(--primary); padding-bottom: 18px; margin-bottom: 22px; }
-        h1 { font-size: 2.1rem; letter-spacing: -0.5px; }
-        .role { color: var(--primary); font-weight: 600; font-size: 1.05rem; margin-top: 2px; }
-        .contact { margin-top: 12px; font-size: 0.85rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; }
-        .contact a { color: var(--muted); text-decoration: none; }
-        section { margin-top: 22px; }
-        h2 {
-            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px;
-            color: var(--primary); border-bottom: 1px solid var(--line);
-            padding-bottom: 5px; margin-bottom: 12px;
-        }
-        .item { margin-bottom: 14px; }
-        .item-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
-        .item-title { font-weight: 700; font-size: 0.98rem; }
-        .item-date { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
-        .item-sub { font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-bottom: 3px; }
-        .item p { font-size: 0.88rem; color: var(--muted); }
-        .summary { font-size: 0.92rem; color: var(--muted); }
-        ul.skills { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
-        ul.skills li {
-            background: #eff6ff; color: var(--primary); font-size: 0.8rem; font-weight: 600;
-            padding: 4px 12px; border-radius: 20px;
-        }
-        .links a { color: var(--primary); }
+
+        /* On-screen toolbar (hidden when printing) */
         .print-bar {
-            position: sticky; top: 0; text-align: center; padding: 14px;
-            background: #0f172a;
+            position: sticky; top: 0; z-index: 10;
+            display: flex; align-items: center; justify-content: center; gap: 18px;
+            padding: 12px; background: var(--accent);
         }
         .print-bar button {
-            background: var(--primary); color: #fff; border: 0; padding: 10px 22px;
-            border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer;
+            background: #fff; color: var(--accent); border: 0;
+            padding: 9px 20px; border-radius: 6px;
+            font-weight: 700; font-size: 0.85rem; cursor: pointer;
         }
-        .print-bar a { color: #cbd5e1; text-decoration: none; margin-left: 16px; font-size: 0.85rem; }
+        .print-bar a { color: #cbd5e1; text-decoration: none; font-size: 0.82rem; }
+
+        .page {
+            max-width: 800px; margin: 22px auto; background: #fff;
+            padding: 52px 60px; box-shadow: 0 6px 28px rgba(0,0,0,0.12);
+        }
+
+        /* Header */
+        header { text-align: center; margin-bottom: 6px; }
+        h1 {
+            font-size: 2.3rem; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; color: var(--accent);
+        }
+        .role {
+            font-size: 1rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--muted); margin-top: 4px; font-weight: 600;
+        }
+        .contact {
+            margin-top: 12px; font-size: 0.82rem; color: var(--muted);
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px;
+        }
+        .contact a { color: var(--muted); text-decoration: none; }
+        .contact span { color: var(--rule); }
+
+        /* Sections */
+        section { margin-top: 24px; }
+        h2 {
+            font-size: 0.82rem; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--accent);
+            border-bottom: 1.5px solid var(--accent);
+            padding-bottom: 4px; margin-bottom: 12px;
+        }
+        .summary { color: var(--muted); }
+
+        .item { margin-bottom: 13px; }
+        .item:last-child { margin-bottom: 0; }
+        .item-head {
+            display: flex; justify-content: space-between; align-items: baseline; gap: 14px;
+        }
+        .item-title { font-weight: 700; }
+        .item-org { font-weight: 600; color: var(--accent); }
+        .item-date {
+            font-size: 0.8rem; color: var(--muted); white-space: nowrap; font-style: italic;
+        }
+        .item p { color: var(--muted); margin-top: 2px; font-size: 0.92rem; }
+        ul.bullets { margin: 3px 0 0 18px; }
+        ul.bullets li { color: var(--muted); font-size: 0.92rem; margin-bottom: 2px; }
+
+        /* Skills as clean inline rows, ATS-friendly */
+        .skills-row { display: flex; gap: 8px; margin-bottom: 5px; font-size: 0.92rem; }
+        .skills-row:last-child { margin-bottom: 0; }
+        .skills-label { font-weight: 700; min-width: 120px; }
+        .skills-val { color: var(--muted); }
+
         @media print {
+            body { background: #fff; font-size: 12.5px; }
             .print-bar { display: none; }
-            body { background: #fff; }
-            .page { box-shadow: none; margin: 0; max-width: none; padding: 0 12mm; }
+            .page { box-shadow: none; margin: 0; max-width: none; padding: 0 14mm; }
         }
     </style>
 </head>
 <body>
     <div class="print-bar">
-        <button onclick="window.print()">⬇ Download / Print as PDF</button>
-        <a href="index.html">← Back to portfolio</a>
+        <button onclick="window.print()">Download / Print as PDF</button>
+        <a href="index.html">&larr; Back to portfolio</a>
     </div>
 
     <div class="page">
@@ -69,51 +104,64 @@
             <h1>Mark Frizas</h1>
             <div class="role">Full-Stack Developer</div>
             <div class="contact">
-                <a href="mailto:markfrizas1@gmail.com">markfrizas1@gmail.com</a>
-                <a href="https://github.com/mark-12-fr" target="_blank">github.com/mark-12-fr</a>
+                <a href="mailto:markfrizas1@gmail.com">markfrizas1@gmail.com</a><span>|</span>
+                <a href="https://github.com/mark-12-fr" target="_blank">github.com/mark-12-fr</a><span>|</span>
                 <a href="https://linkedin.com/in/mark-frizas-5034a6346/" target="_blank">linkedin.com/in/mark-frizas-5034a6346</a>
             </div>
         </header>
 
         <section>
-            <h2>Summary</h2>
+            <h2>Professional Summary</h2>
             <p class="summary">
-                Independent full-stack developer building production-grade EdTech systems. Specializing in
-                Python + Flask, PostgreSQL, and vanilla JavaScript, with hands-on experience across the entire
-                stack — from database architecture and real-time messaging (Socket.IO) to pixel-perfect UI and
-                cloud deployment. Creator of AcadTrack, an AI-powered Academic Management System showcased at
-                the 2nd INNOVEX 2026 International Conference.
+                Full-stack developer specializing in Python, Flask, and PostgreSQL, with end-to-end
+                experience from database design to deployment. Creator of AcadTrack, an AI-powered
+                academic management system showcased at the 2nd INNOVEX 2026 International Conference.
+                Comfortable building real-time applications, REST APIs, and clean, responsive interfaces.
             </p>
         </section>
 
         <section>
             <h2>Technical Skills</h2>
-            <ul class="skills">
-                <li>Python</li><li>Flask</li><li>JavaScript</li><li>HTML5</li><li>CSS3</li>
-                <li>PostgreSQL</li><li>Socket.IO</li><li>JWT Auth</li><li>REST APIs</li>
-                <li>Git &amp; GitHub</li><li>Vercel</li><li>Render</li><li>PWA</li>
-            </ul>
+            <div class="skills-row">
+                <span class="skills-label">Languages</span>
+                <span class="skills-val">Python, JavaScript, HTML5, CSS3, SQL</span>
+            </div>
+            <div class="skills-row">
+                <span class="skills-label">Frameworks &amp; Tools</span>
+                <span class="skills-val">Flask, Socket.IO, REST APIs, JWT Authentication, PWA</span>
+            </div>
+            <div class="skills-row">
+                <span class="skills-label">Databases</span>
+                <span class="skills-val">PostgreSQL</span>
+            </div>
+            <div class="skills-row">
+                <span class="skills-label">Deployment &amp; Other</span>
+                <span class="skills-val">Vercel, Render, Git &amp; GitHub</span>
+            </div>
         </section>
 
         <section>
             <h2>Experience</h2>
             <div class="item">
                 <div class="item-head">
-                    <span class="item-title">Independent Developer — EdTech Solutions</span>
+                    <span class="item-title">Independent Full-Stack Developer <span class="item-org">— EdTech Solutions</span></span>
                     <span class="item-date">2026 — Present</span>
                 </div>
-                <p>Build and deploy production-grade academic management systems. Lead product development,
-                   client relations, and deployment of AcadTrack — an AI-powered platform handling enrollment,
-                   grading, and learning analytics for students.</p>
+                <ul class="bullets">
+                    <li>Build and deploy production-grade academic management systems end to end.</li>
+                    <li>Lead development of AcadTrack — handling enrollment, grading, and learning analytics.</li>
+                    <li>Manage product development, deployment, and client communication.</li>
+                </ul>
             </div>
             <div class="item">
                 <div class="item-head">
-                    <span class="item-title">Full-Stack Developer — PHINMA University of Iloilo</span>
+                    <span class="item-title">Full-Stack Developer <span class="item-org">— PHINMA University of Iloilo</span></span>
                     <span class="item-date">2026</span>
                 </div>
-                <p>Developed the Teacher Management Portal and Facilitator Dashboard — real-time analytics tools
-                   used by educators and facilitators for classroom management, student performance tracking,
-                   and module/activity monitoring.</p>
+                <ul class="bullets">
+                    <li>Developed the Teacher Management Portal and Facilitator Dashboard used by educators.</li>
+                    <li>Delivered real-time analytics for classroom management and student performance tracking.</li>
+                </ul>
             </div>
         </section>
 
@@ -124,46 +172,34 @@
                     <span class="item-title">AcadTrack — AI-Powered Academic Management System</span>
                     <span class="item-date">2026</span>
                 </div>
-                <div class="item-sub">Flask · PostgreSQL · JavaScript</div>
                 <p>Enrollment, grading, and real-time learning analytics platform. Deployed online and
-                   showcased at the 2nd INNOVEX 2026 International Conference.</p>
+                   showcased at the 2nd INNOVEX 2026 International Conference. <em>Flask, PostgreSQL, JavaScript.</em></p>
             </div>
             <div class="item">
                 <div class="item-head">
                     <span class="item-title">Pulse Messenger — Real-Time Chat Platform</span>
                     <span class="item-date">2026</span>
                 </div>
-                <div class="item-sub">Flask · Socket.IO · PostgreSQL · JWT</div>
-                <p>Real-time messenger with secure auth, friend system, media uploads, online presence,
-                   typing indicators, and daily auto-clearing chats. Deployed on Render + Vercel.</p>
+                <p>Real-time messenger with secure authentication, friend system, media uploads, online
+                   presence, and typing indicators. <em>Flask, Socket.IO, PostgreSQL, JWT.</em></p>
             </div>
             <div class="item">
                 <div class="item-head">
-                    <span class="item-title">Shopper — Premium E-Commerce PWA</span>
+                    <span class="item-title">Shopper — E-Commerce PWA</span>
                     <span class="item-date">2026</span>
                 </div>
-                <div class="item-sub">JavaScript · Flask · PostgreSQL · PWA</div>
-                <p>Full-featured e-commerce progressive web app with product browsing, voice &amp; barcode
-                   search, cart, wishlist, order history, and customer support chat. Offline support via PWA.</p>
-            </div>
-            <div class="item">
-                <div class="item-head">
-                    <span class="item-title">Teacher Management Portal &amp; Facilitator Dashboard</span>
-                    <span class="item-date">2026</span>
-                </div>
-                <div class="item-sub">HTML5 · CSS3 · JavaScript · Flask</div>
-                <p>AI-powered dashboards for educators that streamline classroom management, student
-                   performance analytics, and module tracking with real-time data sync.</p>
+                <p>Full-featured e-commerce progressive web app with voice &amp; barcode search, cart,
+                   wishlist, and order history, plus offline support. <em>JavaScript, Flask, PostgreSQL, PWA.</em></p>
             </div>
         </section>
 
         <section>
             <h2>Achievements</h2>
-            <div class="item">
-                <p>• Showcased <strong>AcadTrack</strong> at the 2nd INNOVEX 2026 International Conference.</p>
-                <p>• Delivered 5+ production full-stack applications including real-time messengers,
-                   e-commerce PWAs, and AI-powered dashboards.</p>
-            </div>
+            <ul class="bullets">
+                <li>Showcased AcadTrack at the 2nd INNOVEX 2026 International Conference.</li>
+                <li>Delivered 5+ production full-stack applications, including real-time messengers,
+                    e-commerce PWAs, and AI-powered dashboards.</li>
+            </ul>
         </section>
     </div>
 </body>
