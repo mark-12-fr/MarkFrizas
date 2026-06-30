@@ -109,7 +109,7 @@ if (themeToggle) {
 
 const typewriterEl = document.getElementById('typewriter');
 if (typewriterEl) {
-    const words = ['Full-Stack Developer', 'Founder of MJR Vertex', 'AcadTrack Creator'];
+    const words = ['Full-Stack Developer', 'Flask & Python Engineer', 'AcadTrack Creator', 'Real-Time App Builder'];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -210,26 +210,85 @@ if (canvas) {
         animId = requestAnimationFrame(animate);
     }
 
+    function drawStaticFrame() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => p.draw());
+        drawConnections();
+    }
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     resize();
     initParticles();
-    animate();
+
+    if (reduceMotion) {
+        // Respect users who prefer less motion: render one static frame, no loop.
+        drawStaticFrame();
+    } else {
+        animate();
+        // Pause the animation loop while the tab is hidden to save CPU/battery.
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(animId);
+            } else {
+                animate();
+            }
+        });
+    }
 
     window.addEventListener('resize', () => {
         resize();
         initParticles();
+        if (reduceMotion) drawStaticFrame();
     });
 }
 
-// ─── 8. STATS COUNTER ────────────────────────────────────────────────────────
+// ─── 8. STATS COUNTER (count-up animation) ───────────────────────────────────
 
-const statNumbers = document.querySelectorAll('.stat-number');
+const statNumbers = document.querySelectorAll('.stat-number[data-count]');
 if (statNumbers.length) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function countUp(el) {
+        const target = parseInt(el.dataset.count, 10);
+        const suffix = el.dataset.suffix || '';
+        if (reduceMotion) {
+            el.textContent = target + suffix;
+            return;
+        }
+        const duration = 1400;
+        const start = performance.now();
+        function tick(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            // easeOutCubic for a snappy finish
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(eased * target) + suffix;
+            if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+    }
+
     const countObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                countUp(entry.target);
                 countObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.5 });
     statNumbers.forEach(s => countObserver.observe(s));
 }
+
+// ─── 9. CLICKABLE PROJECT CARDS ──────────────────────────────────────────────
+// The whole project image opens its live demo (the "View Demo" overlay is now active).
+
+document.querySelectorAll('.project-card').forEach(card => {
+    const image = card.querySelector('.project-image');
+    const demoLink = card.querySelector('.demo-btn:not(.github-link)');
+    if (image && demoLink) {
+        image.style.cursor = 'pointer';
+        image.addEventListener('click', () => {
+            window.open(demoLink.href, '_blank', 'noopener');
+        });
+    }
+});
