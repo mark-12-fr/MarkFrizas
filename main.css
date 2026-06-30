@@ -910,3 +910,21 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
     .contact-form { padding: 24px; }
     .timeline { padding-left: 20px; }
 }
+
+/* --- ACCESSIBILITY: respect reduced-motion preference --- */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+    /* Reveal-on-scroll elements must stay visible without their transition. */
+    .reveal, .reveal-left, .reveal-right,
+    .skill-card, .project-card, .contact-item, .timeline-item, .testimonial-card {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    .scroll-hint { display: none; }
+}

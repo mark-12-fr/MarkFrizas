@@ -8,8 +8,15 @@
     <meta name="author" content="Mark Frizas">
     <meta property="og:title" content="Mark Frizas | Portfolio">
     <meta property="og:description" content="Full-Stack Developer specializing in real-time apps and AI-powered dashboards.">
-    <meta property="og:image" content="pic1.jpg">
+    <!-- NOTE: update the domain below to your live URL so social-share previews render -->
+    <meta property="og:url" content="https://markfrizas.vercel.app/">
+    <meta property="og:image" content="https://markfrizas.vercel.app/pic1.jpg">
     <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mark Frizas | Full-Stack Developer">
+    <meta name="twitter:description" content="Full-Stack Developer specializing in real-time apps and AI-powered dashboards.">
+    <meta name="twitter:image" content="https://markfrizas.vercel.app/pic1.jpg">
+    <link rel="canonical" href="https://markfrizas.vercel.app/">
     <title>Mark Frizas | Full-Stack Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
@@ -86,6 +93,7 @@
                 </div>
                 <div class="hero-btns">
                     <a href="#projects" class="btn primary">Explore My Work</a>
+                    <a href="resume.html" target="_blank" class="btn secondary"><i class="fas fa-file-arrow-down"></i> Resume</a>
                     <a href="#contact" class="btn secondary">Let's Talk</a>
                 </div>
             </div>
@@ -129,11 +137,11 @@
                 </div>
                 <div class="about-stats">
                     <div class="stat">
-                        <span class="stat-number">5+</span>
+                        <span class="stat-number" data-count="5" data-suffix="+">0</span>
                         <span class="stat-label">Projects Built</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number">3</span>
+                        <span class="stat-number" data-count="3">0</span>
                         <span class="stat-label">Live Demos</span>
                     </div>
                     <div class="stat">
@@ -255,7 +263,7 @@
                     <div class="achievement-icon"><i class="fas fa-code"></i></div>
                     <div class="achievement-info">
                         <h3>5+ Production Projects Delivered</h3>
-                        <p>Built and deployed multiple full-stack applications including real-time messengers, biometric systems, and AI-powered dashboards.</p>
+                        <p>Built and deployed multiple full-stack applications including real-time messengers, e-commerce PWAs, and AI-powered dashboards.</p>
                     </div>
                 </div>
             </div>
@@ -469,5 +477,7 @@
     </footer>
 
     <script src="main.js"></script>
+    <!-- Vercel Web Analytics (enable "Web Analytics" in the Vercel project dashboard) -->
+    <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
