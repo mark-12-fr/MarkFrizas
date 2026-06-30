@@ -81,15 +81,16 @@
         ul.bullets li { color: var(--muted); font-size: 0.92rem; margin-bottom: 2px; }
 
         /* Skills as clean inline rows, ATS-friendly */
-        .skills-row { display: flex; gap: 8px; margin-bottom: 5px; font-size: 0.92rem; }
+        .skills-row { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-bottom: 5px; font-size: 0.92rem; }
         .skills-row:last-child { margin-bottom: 0; }
-        .skills-label { font-weight: 700; min-width: 120px; }
-        .skills-val { color: var(--muted); }
+        .skills-label { font-weight: 700; flex: 0 0 130px; }
+        .skills-val { color: var(--muted); flex: 1; min-width: 180px; }
 
+        @page { margin: 14mm; }
         @media print {
-            body { background: #fff; font-size: 12.5px; }
+            body { background: #fff; font-size: 13px; }
             .print-bar { display: none; }
-            .page { box-shadow: none; margin: 0; max-width: none; padding: 0 14mm; }
+            .page { box-shadow: none; margin: 0; max-width: none; padding: 0; }
         }
     </style>
 </head>
@@ -105,8 +106,8 @@
             <div class="role">Full-Stack Developer</div>
             <div class="contact">
                 <a href="mailto:markfrizas1@gmail.com">markfrizas1@gmail.com</a><span>|</span>
-                <a href="https://github.com/mark-12-fr" target="_blank">github.com/mark-12-fr</a><span>|</span>
-                <a href="https://linkedin.com/in/mark-frizas-5034a6346/" target="_blank">linkedin.com/in/mark-frizas-5034a6346</a>
+                <a href="https://github.com/mark-12-fr" target="_blank" rel="noopener noreferrer">github.com/mark-12-fr</a><span>|</span>
+                <a href="https://linkedin.com/in/mark-frizas-5034a6346/" target="_blank" rel="noopener noreferrer">linkedin.com/in/mark-frizas-5034a6346</a>
             </div>
         </header>
 
@@ -197,7 +198,7 @@
             <h2>Achievements</h2>
             <ul class="bullets">
                 <li>Showcased AcadTrack at the 2nd INNOVEX 2026 International Conference.</li>
-                <li>Delivered 5+ production full-stack applications, including real-time messengers,
+                <li>Delivered 4 production full-stack applications, including real-time messengers,
                     e-commerce PWAs, and AI-powered dashboards.</li>
             </ul>
         </section>
