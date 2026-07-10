@@ -346,8 +346,148 @@ document.querySelectorAll('.service-card, .achievement-card').forEach(card => {
     });
 });
 
-// ─── 13. 3D PARTICLE ENHANCEMENT (depth layers) ──────────────────────────────
-// (The existing particle system already runs; this is handled via Three.js scene)
+// ─── 13. 3D NAV LINK TILT ─────────────────────────────────────────────────────
+
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('mousemove', (e) => {
+        const rect = link.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        link.style.transform = `perspective(400px) rotateY(${x * 12}deg)`;
+    });
+    link.addEventListener('mouseleave', () => {
+        link.style.transform = '';
+    });
+});
+
+// ─── 14. 3D SOCIAL ICONS TILT + SPIN ──────────────────────────────────────────
+
+document.querySelectorAll('.social-icons a, .footer-socials a').forEach(icon => {
+    icon.addEventListener('mousemove', (e) => {
+        const rect = icon.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        icon.style.transform = `perspective(500px) rotateY(${x * 20}deg) rotateX(${y * -15}deg)`;
+    });
+    icon.addEventListener('mouseleave', () => {
+        icon.style.transform = '';
+    });
+});
+
+// ─── 15. 3D BUTTON LIFT ───────────────────────────────────────────────────────
+
+document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        btn.style.transform = `perspective(600px) rotateY(${x * 8}deg) rotateX(${y * -5}deg) translateY(-3px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+    });
+});
+
+// ─── 16. 3D SECTION TAG ROTATE ────────────────────────────────────────────────
+
+document.querySelectorAll('.section-tag').forEach(tag => {
+    tag.addEventListener('mousemove', (e) => {
+        const rect = tag.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        tag.style.transform = `perspective(300px) rotateY(${x * 25}deg) scale(1.1)`;
+    });
+    tag.addEventListener('mouseleave', () => {
+        tag.style.transform = '';
+    });
+});
+
+// ─── 17. 3D TESTIMONIAL CARDS TILT ────────────────────────────────────────────
+
+document.querySelectorAll('.testimonial-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${y * -5}deg) translateY(-6px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+    });
+});
+
+// ─── 18. 3D CONTACT ITEMS TILT ────────────────────────────────────────────────
+
+document.querySelectorAll('.contact-item').forEach(item => {
+    item.addEventListener('mousemove', (e) => {
+        const rect = item.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        item.style.transform = `perspective(700px) rotateY(${x * 8}deg) rotateX(${y * -5}deg)`;
+    });
+    item.addEventListener('mouseleave', () => {
+        item.style.transform = '';
+    });
+});
+
+// ─── 19. 3D SCROLL PROGRESS BAR ───────────────────────────────────────────────
+
+(function() {
+    const bar = document.createElement('div');
+    bar.id = 'scroll-progress';
+    bar.style.cssText = 'position:fixed;top:0;left:0;width:0%;height:3px;background:linear-gradient(90deg,var(--primary),var(--accent));z-index:9999;transition:width 0.1s linear;transform:translateZ(0);';
+    document.body.prepend(bar);
+    window.addEventListener('scroll', () => {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = h > 0 ? (window.scrollY / h * 100) + '%' : '0%';
+    });
+})();
+
+// ─── 20. 3D CURSOR GLOW ───────────────────────────────────────────────────────
+
+(function() {
+    const glow = document.createElement('div');
+    glow.id = 'cursor-glow';
+    glow.style.cssText = 'position:fixed;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.08),transparent 70%);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left 0.15s ease-out,top 0.15s ease-out;';
+    document.body.prepend(glow);
+    document.addEventListener('mousemove', (e) => {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+    });
+})();
+
+// ─── 21. 3D TIMELINE DOT PULSE ────────────────────────────────────────────────
+
+(function() {
+    const dots = document.querySelectorAll('.timeline-dot');
+    dots.forEach((dot, i) => {
+        dot.style.animation = `pulse3d ${1.5 + i * 0.2}s ease-in-out ${i * 0.3}s infinite`;
+    });
+})();
+
+// ─── 22. 3D PROJECT BADGE SHINE ───────────────────────────────────────────────
+
+document.querySelectorAll('.project-tag, .project-status').forEach(badge => {
+    badge.addEventListener('mousemove', (e) => {
+        const rect = badge.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        badge.style.transform = `perspective(400px) rotateY(${x * 15}deg) scale(1.05)`;
+    });
+    badge.addEventListener('mouseleave', () => {
+        badge.style.transform = '';
+    });
+});
+
+// ─── 23. 3D TECH TAGS ─────────────────────────────────────────────────────────
+
+document.querySelectorAll('.tech-used span').forEach(tag => {
+    tag.addEventListener('mousemove', (e) => {
+        const rect = tag.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        tag.style.transform = `perspective(300px) rotateY(${x * 20}deg) translateZ(8px)`;
+    });
+    tag.addEventListener('mouseleave', () => {
+        tag.style.transform = '';
+    });
+});
 
 // ─── 9. (legacy) CLICKABLE PROJECT CARDS + 3D TILT ────────────────────────────
 
