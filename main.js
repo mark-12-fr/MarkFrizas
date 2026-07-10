@@ -903,34 +903,16 @@ document.querySelectorAll('.btn').forEach(btn => {
     document.head.appendChild(style);
 })();
 
-// ─── 46. HYBRID WAVE TEXT (hero name — fixed gradient) ───────────────────────
+// ─── 46. NAME FLOAT (gentle, no letter splitting) ─────────────────────────────
 
 (function() {
-    var h1 = document.querySelector('.hero-text h1');
-    if (!h1) return;
-    var style = document.createElement('style');
-    style.textContent = '@keyframes waveText { 0%,100% { transform: translateY(0) rotateX(0); } 25% { transform: translateY(-4px) rotateX(8deg); } 50% { transform: translateY(0) rotateX(0); } 75% { transform: translateY(-2px) rotateX(4deg); } }';
-    document.head.appendChild(style);
-    var highlight = h1.querySelector('.name-highlight');
+    var highlight = document.querySelector('.name-highlight');
     if (!highlight) return;
-    var text = highlight.textContent;
     var computed = getComputedStyle(highlight);
     var grad = computed.backgroundImage || 'linear-gradient(135deg, #3b82f6, #06b6d4)';
-    highlight.textContent = '';
-    highlight.style.background = 'none';
-    highlight.style.webkitTextFillColor = '';
-    Array.from(text).forEach(function(ch, i) {
-        var span = document.createElement('span');
-        span.textContent = ch === ' ' ? '\u00a0' : ch;
-        span.style.display = 'inline-block';
-        span.style.background = grad;
-        span.style.webkitBackgroundClip = 'text';
-        span.style.webkitTextFillColor = 'transparent';
-        span.style.backgroundClip = 'text';
-        span.style.animation = 'waveText ' + (2.5 + Math.random() * 0.5) + 's ease-in-out ' + (i * 0.04) + 's infinite';
-        span.style.transformStyle = 'preserve-3d';
-        highlight.appendChild(span);
-    });
+    highlight.style.background = grad;
+    highlight.style.backgroundSize = '200% 200%';
+    highlight.style.animation = 'gradientShift 4s ease infinite';
 })();
 
 // ─── 47. HYBRID SPARKLE FOLLOW (lightweight) ─────────────────────────────────
