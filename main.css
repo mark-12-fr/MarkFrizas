@@ -1005,16 +1005,33 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
 /* --- MAGNETIC BUTTON ENHANCE --- */
 .btn { transition: transform 0.15s ease-out, color 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
 
-/* --- DIGITAL RAIN CANVAS LAYER --- */
-.hero { isolation: isolate; }
+/* --- FIX LAYERING --- */
+.hero { position: relative; z-index: 1; }
+.hero-container { position: relative; z-index: 2; }
 #three-container { z-index: 0 !important; }
+canvas[style*="position:absolute"][style*="inset:0"] { z-index: 0 !important; }
+
+/* --- LIGHT MODE SECTION WAVE ADAPT --- */
+body.light-mode .section-wave path { fill: #f8fafc !important; }
 
 /* --- SHIMMER OVERRIDE --- */
 .project-image { overflow: hidden; }
 
+/* --- LIGHT MODE FIXES --- */
+body.light-mode .skill-card i,
+body.light-mode .service-icon,
+body.light-mode .contact-item i { color: var(--primary); }
+
+/* --- ANIMATED BORDER FALLBACK --- */
+@supports not (--angle: 0deg) {
+    .project-card > div:first-child { display: none !important; }
+}
+
+/* --- FIX SCROLL PARALLAX CONFLICTS --- */
+.service-card, .timeline-item { transition: transform 0.3s ease, border-color 0.3s ease !important; }
+
 /* --- RESPECT REDUCED MOTION --- */
 @media (prefers-reduced-motion: reduce) {
-    .wave-char { animation: none !important; }
     .glitch-trigger:hover { animation: none !important; }
 }
 

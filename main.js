@@ -307,22 +307,22 @@ if (statNumbers.length) {
     });
 })();
 
-// ─── 11. SCROLL PARALLAX (3D depth) ───────────────────────────────────────────
+// ─── 11. SCROLL PARALLAX (3D depth — fixed) ───────────────────────────────────
 
 (function() {
-    const els = document.querySelectorAll('.section-header, .achievement-card, .service-card, .timeline-item');
+    const els = document.querySelectorAll('.service-card, .timeline-item');
     let ticking = false;
     window.addEventListener('scroll', () => {
         if (!ticking) {
             requestAnimationFrame(() => {
-                const sy = window.scrollY;
                 els.forEach((el, i) => {
                     const rect = el.getBoundingClientRect();
                     const center = rect.top + rect.height / 2;
                     if (center < window.innerHeight && center > -rect.height) {
-                        const depth = 0.02 + (i % 5) * 0.01;
+                        const depth = 0.02 + (i % 5) * 0.005;
                         const yOff = (center - window.innerHeight / 2) * depth;
-                        el.style.transform = `translateY(${yOff}px)`;
+                        el.style.setProperty('--parallax-y', yOff + 'px');
+                        el.style.transform = 'translateY(' + yOff + 'px)';
                     }
                 });
                 ticking = false;
@@ -441,17 +441,21 @@ document.querySelectorAll('.contact-item').forEach(item => {
     });
 })();
 
-// ─── 20. 3D CURSOR GLOW ───────────────────────────────────────────────────────
+// ─── 20. 3D CURSOR GLOW (fixed light mode) ────────────────────────────────────
 
 (function() {
     const glow = document.createElement('div');
     glow.id = 'cursor-glow';
-    glow.style.cssText = 'position:fixed;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.08),transparent 70%);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left 0.15s ease-out,top 0.15s ease-out;';
+    glow.style.cssText = 'position:fixed;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.06),transparent 70%);pointer-events:none;z-index:1;transform:translate(-50%,-50%);transition:left 0.2s ease-out,top 0.2s ease-out;display:none;';
     document.body.prepend(glow);
-    document.addEventListener('mousemove', (e) => {
+    var isLight = function() { return document.body.classList.contains('light-mode'); };
+    document.addEventListener('mousemove', function(e) {
+        glow.style.display = 'block';
+        glow.style.background = isLight() ? 'radial-gradient(circle,rgba(37,99,235,0.04),transparent 70%)' : 'radial-gradient(circle,rgba(59,130,246,0.06),transparent 70%)';
         glow.style.left = e.clientX + 'px';
         glow.style.top = e.clientY + 'px';
     });
+    document.addEventListener('mouseleave', function() { glow.style.display = 'none'; });
 })();
 
 // ─── 21. 3D TIMELINE DOT PULSE ────────────────────────────────────────────────
@@ -579,35 +583,47 @@ document.querySelectorAll('.form-group input, .form-group textarea').forEach(inp
     });
 });
 
-// ─── 31. 3D SECTION DIVIDER WAVES ─────────────────────────────────────────────
+// ─── 31. 3D SECTION DIVIDER WAVES (fixed) ─────────────────────────────────────
 
 (function() {
     const sections = document.querySelectorAll('.skills-section, .about-section, .timeline-section, .services-section, .achievements-section, .projects-section, .testimonials-section, .contact-section');
+    function getWaveColor() {
+        return document.body.classList.contains('light-mode') ? '#f8fafc' : '#080c14';
+    }
     sections.forEach(section => {
         const wave = document.createElement('div');
+        wave.className = 'section-wave';
         wave.style.cssText = 'position:absolute;bottom:-2px;left:0;width:100%;height:40px;overflow:hidden;pointer-events:none;z-index:1;';
-        wave.innerHTML = '<svg viewBox="0 0 1200 40" preserveAspectRatio="none" style="width:100%;height:100%;"><path d="M0,20 C200,40 400,0 600,20 C800,40 1000,0 1200,20 L1200,40 L0,40 Z" fill="var(--bg)" opacity="0.5"><animate attributeName="d" dur="6s" repeatCount="indefinite" values="M0,20 C200,40 400,0 600,20 C800,40 1000,0 1200,20 L1200,40 L0,40 Z;M0,25 C200,10 400,35 600,15 C800,30 1000,10 1200,25 L1200,40 L0,40 Z;M0,20 C200,40 400,0 600,20 C800,40 1000,0 1200,20 L1200,40 L0,40 Z"/></path></svg>';
+        wave.innerHTML = '<svg viewBox="0 0 1200 40" preserveAspectRatio="none" style="width:100%;height:100%;"><path d="M0,20 C200,40 400,0 600,20 C800,40 1000,0 1200,20 L1200,40 L0,40 Z" opacity="0.5"><animate attributeName="d" dur="6s" repeatCount="indefinite" values="M0,20 C200,40 400,0 600,20 C800,40 1000,0 1200,20 L1200,40 L0,40 Z;M0,25 C200,10 400,35 600,15 C800,30 1000,10 1200,25 L1200,40 L0,40 Z;M0,20 C200,40 400,0 600,20 C800,40 1000,0 1200,20 L1200,40 L0,40 Z"/></path></svg>';
+        var path = wave.querySelector('path');
+        path.setAttribute('fill', getWaveColor());
         if (section !== sections[sections.length - 1]) {
             section.style.position = 'relative';
             section.appendChild(wave);
         }
     });
+    var waveObserver = new MutationObserver(function() {
+        document.querySelectorAll('.section-wave path').forEach(function(p) {
+            p.setAttribute('fill', getWaveColor());
+        });
+    });
+    waveObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 })();
 
-// ─── 32. 3D MOUSE TRAIL ───────────────────────────────────────────────────────
+// ─── 32. 3D MOUSE TRAIL (subtle) ──────────────────────────────────────────────
 
 (function() {
     const trail = document.createElement('div');
     trail.id = 'mouse-trail';
-    trail.style.cssText = 'position:fixed;pointer-events:none;z-index:9997;';
+    trail.style.cssText = 'position:fixed;pointer-events:none;z-index:1;';
     document.body.appendChild(trail);
     const dots = [];
-    var count = 12;
+    var count = 6;
     for (var i = 0; i < count; i++) {
         var dot = document.createElement('div');
-        var size = 4 - i * 0.25;
-        var alpha = 0.3 - i * 0.025;
-        dot.style.cssText = 'position:fixed;border-radius:50%;pointer-events:none;background:rgba(59,130,246,' + alpha + ');width:' + size + 'px;height:' + size + 'px;transform:translate(-50%,-50%);transition:left 0.1s ease-out,top 0.1s ease-out;';
+        var size = 3 - i * 0.3;
+        var alpha = 0.15 - i * 0.02;
+        dot.style.cssText = 'position:fixed;border-radius:50%;pointer-events:none;background:rgba(59,130,246,' + alpha + ');width:' + size + 'px;height:' + size + 'px;transform:translate(-50%,-50%);transition:left 0.12s ease-out,top 0.12s ease-out;';
         trail.appendChild(dot);
         dots.push({ el: dot, x: 0, y: 0 });
     }
@@ -759,21 +775,27 @@ document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('mouseleave', () => { border.style.opacity = '0'; });
 });
 
-// ─── 41. 3D GRAIN OVERLAY ──────────────────────────────────────────────────────
+// ─── 41. 3D GRAIN OVERLAY (light-aware) ───────────────────────────────────────
 
 (function() {
     const grain = document.createElement('div');
-    grain.style.cssText = 'position:fixed;inset:0;z-index:9996;pointer-events:none;opacity:0.03;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E");background-size:256px 256px;';
+    grain.style.cssText = 'position:fixed;inset:0;z-index:0;pointer-events:none;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E");background-size:256px 256px;';
+    function updateGrain() {
+        grain.style.opacity = document.body.classList.contains('light-mode') ? '0.015' : '0.025';
+    }
+    updateGrain();
+    var gObs = new MutationObserver(updateGrain);
+    gObs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
     document.body.appendChild(grain);
 })();
 
 // ─── 42. HYBRID DIGITAL RAIN (hero canvas overlay) ────────────────────────────
 
 (function() {
-    var canvas = document.createElement('canvas');
-    canvas.style.cssText = 'position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0.5;';
     var hero = document.querySelector('.hero');
     if (!hero) return;
+    var canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0.18;';
     hero.insertBefore(canvas, hero.querySelector('.hero-container'));
     var ctx = canvas.getContext('2d');
     var drops = [];
@@ -788,15 +810,23 @@ document.querySelectorAll('.project-card').forEach(card => {
         while (drops.length < columns) drops.push(Math.random() * -canvas.height / fontSize);
     }
 
+    function getRainColor() {
+        return document.body.classList.contains('light-mode') ? 'rgba(37,99,235,0.06)' : 'rgba(8,12,20,0.05)';
+    }
+    var rainBg = getRainColor();
+    var docObserver = new MutationObserver(function() {
+        rainBg = getRainColor();
+    });
+    docObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
     function draw() {
-        ctx.fillStyle = 'rgba(8,12,20,0.05)';
+        ctx.fillStyle = rainBg;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#3b82f6';
         ctx.font = fontSize + 'px monospace';
         for (var i = 0; i < drops.length; i++) {
             var text = chars[Math.floor(Math.random() * chars.length)];
-            ctx.fillStyle = Math.random() > 0.98 ? '#06b6d4' : '#3b82f6';
-            ctx.globalAlpha = 0.4 + Math.random() * 0.3;
+            ctx.fillStyle = document.body.classList.contains('light-mode') ? 'rgba(37,99,235,0.08)' : '#3b82f6';
+            ctx.globalAlpha = 0.2 + Math.random() * 0.2;
             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
             ctx.globalAlpha = 1;
             if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
@@ -904,28 +934,26 @@ document.querySelectorAll('.btn').forEach(btn => {
     }
 })();
 
-// ─── 47. HYBRID SPARKLE FOLLOW ────────────────────────────────────────────────
+// ─── 47. HYBRID SPARKLE FOLLOW (lightweight) ─────────────────────────────────
 
 (function() {
     var container = document.createElement('div');
-    container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9995;';
+    container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:1;';
     document.body.appendChild(container);
-    var sparks = [];
     document.addEventListener('mousemove', function(e) {
-        if (Math.random() > 0.7) return;
+        if (Math.random() > 0.85) return;
         var spark = document.createElement('div');
-        var size = 2 + Math.random() * 4;
-        var colors = ['#3b82f6', '#06b6d4', '#8b5cf6', '#34d399'];
-        spark.style.cssText = 'position:absolute;width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:' + colors[Math.floor(Math.random() * colors.length)] + ';left:' + e.clientX + 'px;top:' + e.clientY + 'px;box-shadow:0 0 6px currentColor;transform:translate(-50%,-50%);';
+        var size = 1.5 + Math.random() * 2;
+        spark.style.cssText = 'position:absolute;width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:#3b82f6;left:' + e.clientX + 'px;top:' + e.clientY + 'px;transform:translate(-50%,-50%);opacity:0.3;';
         container.appendChild(spark);
-        var dx = (Math.random() - 0.5) * 60;
-        var dy = (Math.random() - 0.5) * 60 - 30;
-        spark.style.transition = 'transform 0.8s ease-out, opacity 0.8s ease-out';
+        var dx = (Math.random() - 0.5) * 40;
+        var dy = (Math.random() - 0.5) * 40 - 20;
+        spark.style.transition = 'transform 0.6s ease-out, opacity 0.6s ease-out';
         requestAnimationFrame(function() {
             spark.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(0)';
             spark.style.opacity = '0';
         });
-        setTimeout(function() { spark.remove(); }, 900);
+        setTimeout(function() { spark.remove(); }, 700);
     });
 })();
 
