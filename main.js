@@ -903,14 +903,11 @@ document.querySelectorAll('.btn').forEach(btn => {
     document.head.appendChild(style);
 })();
 
-// ─── 46. NAME FLOAT (gentle, no letter splitting) ─────────────────────────────
+// ─── 46. NAME GRADIENT SHIFT (no inline background override) ──────────────────
 
 (function() {
     var highlight = document.querySelector('.name-highlight');
     if (!highlight) return;
-    var computed = getComputedStyle(highlight);
-    var grad = computed.backgroundImage || 'linear-gradient(135deg, #3b82f6, #06b6d4)';
-    highlight.style.background = grad;
     highlight.style.backgroundSize = '200% 200%';
     highlight.style.animation = 'gradientShift 4s ease infinite';
 })();
