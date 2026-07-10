@@ -881,24 +881,27 @@ document.querySelectorAll('.btn').forEach(btn => {
     document.head.appendChild(style);
 })();
 
-// ─── 46. HYBRID WAVE TEXT (hero title) ────────────────────────────────────────
+// ─── 46. HYBRID WAVE TEXT (hero title — safe version) ─────────────────────────
 
 (function() {
     var h1 = document.querySelector('.hero-text h1');
     if (!h1) return;
-    var text = h1.innerHTML;
-    var wrapped = text.replace(/([A-Za-z0-9])/g, '<span class="wave-char">$1</span>');
-    h1.innerHTML = wrapped;
-    var chars = h1.querySelectorAll('.wave-char');
     var style = document.createElement('style');
-    var keyframes = '@keyframes waveText { 0%,100% { transform: translateY(0) rotateX(0); } 25% { transform: translateY(-6px) rotateX(10deg); } 50% { transform: translateY(0) rotateX(0); } 75% { transform: translateY(-3px) rotateX(5deg); } }\n';
-    chars.forEach(function(c, i) {
-        c.style.display = 'inline-block';
-        c.style.animation = 'waveText ' + (2.5 + Math.random() * 0.5) + 's ease-in-out ' + (i * 0.04) + 's infinite';
-        c.style.transformStyle = 'preserve-3d';
-    });
-    style.textContent = keyframes;
+    style.textContent = '@keyframes waveText { 0%,100% { transform: translateY(0) rotateX(0); } 25% { transform: translateY(-4px) rotateX(8deg); } 50% { transform: translateY(0) rotateX(0); } 75% { transform: translateY(-2px) rotateX(4deg); } }';
     document.head.appendChild(style);
+    var highlight = h1.querySelector('.name-highlight');
+    if (highlight) {
+        var text = highlight.textContent;
+        highlight.textContent = '';
+        Array.from(text).forEach(function(ch, i) {
+            var span = document.createElement('span');
+            span.textContent = ch;
+            span.style.display = 'inline-block';
+            span.style.animation = 'waveText ' + (2.5 + Math.random() * 0.5) + 's ease-in-out ' + (i * 0.04) + 's infinite';
+            span.style.transformStyle = 'preserve-3d';
+            highlight.appendChild(span);
+        });
+    }
 })();
 
 // ─── 47. HYBRID SPARKLE FOLLOW ────────────────────────────────────────────────
