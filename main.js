@@ -685,15 +685,7 @@ document.querySelectorAll('.form-group input, .form-group textarea').forEach(inp
     });
 })();
 
-// ─── 35. 3D ANIMATED GRADIENT ON NAME ──────────────────────────────────────────
-
-(function() {
-    const highlight = document.querySelector('.name-highlight');
-    if (highlight) {
-        highlight.style.backgroundSize = '200% 200%';
-        highlight.style.animation = 'gradientShift 4s ease infinite';
-    }
-})();
+// ─── 35. (removed - gradient handled by wave text) ─────────────────────────────
 
 // ─── 36. 3D DECORATIVE BG BLOBS ───────────────────────────────────────────────
 
@@ -911,7 +903,7 @@ document.querySelectorAll('.btn').forEach(btn => {
     document.head.appendChild(style);
 })();
 
-// ─── 46. HYBRID WAVE TEXT (hero title — safe version) ─────────────────────────
+// ─── 46. HYBRID WAVE TEXT (hero name — fixed gradient) ───────────────────────
 
 (function() {
     var h1 = document.querySelector('.hero-text h1');
@@ -920,18 +912,25 @@ document.querySelectorAll('.btn').forEach(btn => {
     style.textContent = '@keyframes waveText { 0%,100% { transform: translateY(0) rotateX(0); } 25% { transform: translateY(-4px) rotateX(8deg); } 50% { transform: translateY(0) rotateX(0); } 75% { transform: translateY(-2px) rotateX(4deg); } }';
     document.head.appendChild(style);
     var highlight = h1.querySelector('.name-highlight');
-    if (highlight) {
-        var text = highlight.textContent;
-        highlight.textContent = '';
-        Array.from(text).forEach(function(ch, i) {
-            var span = document.createElement('span');
-            span.textContent = ch;
-            span.style.display = 'inline-block';
-            span.style.animation = 'waveText ' + (2.5 + Math.random() * 0.5) + 's ease-in-out ' + (i * 0.04) + 's infinite';
-            span.style.transformStyle = 'preserve-3d';
-            highlight.appendChild(span);
-        });
-    }
+    if (!highlight) return;
+    var text = highlight.textContent;
+    var computed = getComputedStyle(highlight);
+    var grad = computed.backgroundImage || 'linear-gradient(135deg, #3b82f6, #06b6d4)';
+    highlight.textContent = '';
+    highlight.style.background = 'none';
+    highlight.style.webkitTextFillColor = '';
+    Array.from(text).forEach(function(ch, i) {
+        var span = document.createElement('span');
+        span.textContent = ch === ' ' ? '\u00a0' : ch;
+        span.style.display = 'inline-block';
+        span.style.background = grad;
+        span.style.webkitBackgroundClip = 'text';
+        span.style.webkitTextFillColor = 'transparent';
+        span.style.backgroundClip = 'text';
+        span.style.animation = 'waveText ' + (2.5 + Math.random() * 0.5) + 's ease-in-out ' + (i * 0.04) + 's infinite';
+        span.style.transformStyle = 'preserve-3d';
+        highlight.appendChild(span);
+    });
 })();
 
 // ─── 47. HYBRID SPARKLE FOLLOW (lightweight) ─────────────────────────────────
