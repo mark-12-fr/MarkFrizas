@@ -94,6 +94,7 @@ body {
     font-weight: 800; font-size: 1.2rem;
     letter-spacing: -1px; color: var(--text);
     line-height: 1;
+    transform-style: preserve-3d; will-change: transform;
 }
 .logo-dot { color: var(--primary); }
 
@@ -232,6 +233,12 @@ body {
     padding: 6px 16px; border-radius: 50px;
     font-size: 0.8rem; font-weight: 600; color: var(--accent);
     letter-spacing: 0.5px;
+    transform-style: preserve-3d; will-change: transform;
+}
+
+@keyframes badgeFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
 }
 
 .cursor {
@@ -312,6 +319,10 @@ body {
     50% { transform: translateX(-50%) translateY(6px); }
 }
 
+@keyframes ripple3d {
+    to { transform: scale(3); opacity: 0; }
+}
+
 /* --- BUTTONS --- */
 .btn {
     padding: 13px 28px; border-radius: 10px;
@@ -383,7 +394,7 @@ body {
     50% { transform: translateY(-2px) rotateX(-1deg); }
     75% { transform: translateY(-8px) rotateX(1deg); }
 }
-.skill-card i { font-size: 2rem; color: var(--primary); transition: var(--transition); }
+.skill-card i { font-size: 2rem; color: var(--primary); transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease; display: inline-block; }
 .skill-card span { font-weight: 600; font-size: 0.85rem; color: var(--text-muted); transition: var(--transition); }
 
 .skill-card:hover {
@@ -759,8 +770,9 @@ body {
     color: var(--text);
     font-family: 'Syne', sans-serif;
     font-size: 0.95rem;
-    transition: var(--transition);
+    transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     outline: none; resize: none;
+    transform-style: preserve-3d;
 }
 .form-group input::placeholder,
 .form-group textarea::placeholder { color: var(--text-muted); }

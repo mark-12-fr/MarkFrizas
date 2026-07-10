@@ -489,6 +489,111 @@ document.querySelectorAll('.tech-used span').forEach(tag => {
     });
 });
 
+// ─── 24. 3D SKILL ICON SPIN ───────────────────────────────────────────────────
+
+document.querySelectorAll('.skill-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        const icon = card.querySelector('i');
+        if (icon) icon.style.transform = 'rotateY(360deg) scale(1.2)';
+    });
+    card.addEventListener('mouseleave', () => {
+        const icon = card.querySelector('i');
+        if (icon) icon.style.transform = '';
+    });
+});
+
+// ─── 25. 3D HERO BADGE PULSE ──────────────────────────────────────────────────
+
+(function() {
+    const badge = document.querySelector('.status-badge');
+    if (!badge) return;
+    badge.style.animation = 'badgeFloat 3s ease-in-out infinite';
+    badge.style.transformStyle = 'preserve-3d';
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+        const rect = badge.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        badge.style.transform = `perspective(500px) rotateY(${x * 10}deg)`;
+    });
+    document.querySelector('.hero').addEventListener('mouseleave', () => {
+        badge.style.transform = '';
+    });
+})();
+
+// ─── 26. 3D LOGO FLOAT ────────────────────────────────────────────────────────
+
+document.querySelectorAll('.logo').forEach(logo => {
+    let angle = 0;
+    function animateLogo() {
+        angle += 0.005;
+        const yOff = Math.sin(angle) * 3;
+        const rotY = Math.sin(angle * 0.5) * 5;
+        logo.style.transform = `perspective(300px) translateY(${yOff}px) rotateY(${rotY}deg)`;
+        requestAnimationFrame(animateLogo);
+    }
+    animateLogo();
+});
+
+// ─── 27. 3D RIPPLE ON CLICK ───────────────────────────────────────────────────
+
+document.querySelectorAll('.project-card, .service-card, .achievement-card, .testimonial-card').forEach(card => {
+    card.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        ripple.style.cssText = `position:absolute;width:${size}px;height:${size}px;border-radius:50%;background:rgba(59,130,246,0.15);pointer-events:none;left:${x}px;top:${y}px;transform:scale(0);animation:ripple3d 0.6s ease-out forwards;z-index:5;`;
+        this.style.position = 'relative';
+        this.style.overflow = 'hidden';
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 700);
+    });
+});
+
+// ─── 29. 3D PROJECT IMAGE DEPTH ───────────────────────────────────────────────
+
+document.querySelectorAll('.project-card').forEach(card => {
+    const img = card.querySelector('.project-image img');
+    if (!img) return;
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.querySelector('.project-image').getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        img.style.transform = `scale(1.15) translate(${x * -12}px, ${y * -8}px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+        img.style.transform = '';
+    });
+});
+
+// ─── 30. 3D FORM INPUT GLOW ───────────────────────────────────────────────────
+
+document.querySelectorAll('.form-group input, .form-group textarea').forEach(input => {
+    input.addEventListener('focus', () => {
+        input.style.transform = 'perspective(500px) translateZ(6px)';
+        input.style.boxShadow = '0 0 0 3px rgba(59,130,246,0.2), 0 8px 24px rgba(59,130,246,0.1)';
+    });
+    input.addEventListener('blur', () => {
+        input.style.transform = '';
+        input.style.boxShadow = '';
+    });
+});
+
+// ─── 31. 3D SECTION DIVIDER WAVES ─────────────────────────────────────────────
+
+(function() {
+    const sections = document.querySelectorAll('.skills-section, .about-section, .timeline-section, .services-section, .achievements-section, .projects-section, .testimonials-section, .contact-section');
+    sections.forEach(section => {
+        const wave = document.createElement('div');
+        wave.style.cssText = 'position:absolute;bottom:-2px;left:0;width:100%;height:40px;overflow:hidden;pointer-events:none;z-index:1;';
+        wave.innerHTML = '<svg viewBox="0 0 1200 40" preserveAspectRatio="none" style="width:100%;height:100%;"><path d="M0,20 C200,40 400,0 600,20 C800,40 1000,0 1200,20 L1200,40 L0,40 Z" fill="var(--bg)" opacity="0.5"><animate attributeName="d" dur="6s" repeatCount="indefinite" values="M0,20 C200,40 400,0 600,20 C800,40 1000,0 1200,20 L1200,40 L0,40 Z;M0,25 C200,10 400,35 600,15 C800,30 1000,10 1200,25 L1200,40 L0,40 Z;M0,20 C200,40 400,0 600,20 C800,40 1000,0 1200,20 L1200,40 L0,40 Z"/></path></svg>';
+        if (section !== sections[sections.length - 1]) {
+            section.style.position = 'relative';
+            section.appendChild(wave);
+        }
+    });
+})();
+
 // ─── 9. (legacy) CLICKABLE PROJECT CARDS + 3D TILT ────────────────────────────
 
 document.querySelectorAll('.project-card').forEach(card => {
