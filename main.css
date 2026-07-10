@@ -1002,6 +1002,22 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
     .timeline { padding-left: 20px; }
 }
 
+/* --- MAGNETIC BUTTON ENHANCE --- */
+.btn { transition: transform 0.15s ease-out, color 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
+
+/* --- DIGITAL RAIN CANVAS LAYER --- */
+.hero { isolation: isolate; }
+#three-container { z-index: 0 !important; }
+
+/* --- SHIMMER OVERRIDE --- */
+.project-image { overflow: hidden; }
+
+/* --- RESPECT REDUCED MOTION --- */
+@media (prefers-reduced-motion: reduce) {
+    .wave-char { animation: none !important; }
+    .glitch-trigger:hover { animation: none !important; }
+}
+
 /* --- ACCESSIBILITY: respect reduced-motion preference --- */
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }

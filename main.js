@@ -767,6 +767,191 @@ document.querySelectorAll('.project-card').forEach(card => {
     document.body.appendChild(grain);
 })();
 
+// ─── 42. HYBRID DIGITAL RAIN (hero canvas overlay) ────────────────────────────
+
+(function() {
+    var canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0.5;';
+    var hero = document.querySelector('.hero');
+    if (!hero) return;
+    hero.insertBefore(canvas, hero.querySelector('.hero-container'));
+    var ctx = canvas.getContext('2d');
+    var drops = [];
+    var fontSize = 10;
+    var columns, chars;
+
+    function resize() {
+        canvas.width = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+        columns = Math.floor(canvas.width / fontSize);
+        chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
+        while (drops.length < columns) drops.push(Math.random() * -canvas.height / fontSize);
+    }
+
+    function draw() {
+        ctx.fillStyle = 'rgba(8,12,20,0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#3b82f6';
+        ctx.font = fontSize + 'px monospace';
+        for (var i = 0; i < drops.length; i++) {
+            var text = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillStyle = Math.random() > 0.98 ? '#06b6d4' : '#3b82f6';
+            ctx.globalAlpha = 0.4 + Math.random() * 0.3;
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            ctx.globalAlpha = 1;
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+
+    resize();
+    setInterval(draw, 45);
+    window.addEventListener('resize', resize);
+})();
+
+// ─── 43. HYBRID MAGNETIC 3D BUTTONS ──────────────────────────────────────────
+
+document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('mousemove', function(e) {
+        var rect = this.getBoundingClientRect();
+        var x = e.clientX - rect.left - rect.width / 2;
+        var y = e.clientY - rect.top - rect.height / 2;
+        var dist = Math.sqrt(x * x + y * y);
+        var maxDist = 120;
+        if (dist < maxDist) {
+            var pull = (1 - dist / maxDist) * 12;
+            var angle = Math.atan2(y, x);
+            var dx = Math.cos(angle) * pull;
+            var dy = Math.sin(angle) * pull;
+            var rotX = (y / (rect.height / 2)) * -6;
+            var rotY = (x / (rect.width / 2)) * 6;
+            this.style.transform = 'perspective(600px) translate(' + dx + 'px,' + dy + 'px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg) scale(1.05)';
+        }
+    });
+    btn.addEventListener('mouseleave', function() {
+        this.style.transform = '';
+    });
+});
+
+// ─── 44. HYBRID GLITCH TEXT (section headers on hover) ────────────────────────
+
+(function() {
+    var style = document.createElement('style');
+    style.textContent = `
+        .section-title, h2, h3 { position: relative; }
+        .glitch-trigger:hover {
+            animation: glitchAnim 0.3s ease 2;
+        }
+        @keyframes glitchAnim {
+            0% { transform: translate(0); filter: none; }
+            20% { transform: translate(-2px, 2px); filter: hue-rotate(90deg); }
+            40% { transform: translate(2px, -1px); filter: hue-rotate(180deg); }
+            60% { transform: translate(-1px, -2px); filter: none; }
+            80% { transform: translate(1px, 1px); filter: hue-rotate(90deg); }
+            100% { transform: translate(0); filter: none; }
+        }
+    `;
+    document.head.appendChild(style);
+    document.querySelectorAll('.section-title, .project-info h3, .service-card h3, .achievement-info h3, .timeline-content h3').forEach(el => {
+        el.classList.add('glitch-trigger');
+    });
+})();
+
+// ─── 45. HYBRID SHIMMER ON PROJECT IMAGES ─────────────────────────────────────
+
+(function() {
+    var style = document.createElement('style');
+    style.textContent = `
+        .project-image::after {
+            content: ''; position: absolute; inset: 0; z-index: 2;
+            background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
+            background-size: 200% 100%;
+            opacity: 0; transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .project-card:hover .project-image::after {
+            opacity: 1;
+            animation: shimmer 1.2s ease forwards;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    `;
+    document.head.appendChild(style);
+})();
+
+// ─── 46. HYBRID WAVE TEXT (hero title) ────────────────────────────────────────
+
+(function() {
+    var h1 = document.querySelector('.hero-text h1');
+    if (!h1) return;
+    var text = h1.innerHTML;
+    var wrapped = text.replace(/([A-Za-z0-9])/g, '<span class="wave-char">$1</span>');
+    h1.innerHTML = wrapped;
+    var chars = h1.querySelectorAll('.wave-char');
+    var style = document.createElement('style');
+    var keyframes = '@keyframes waveText { 0%,100% { transform: translateY(0) rotateX(0); } 25% { transform: translateY(-6px) rotateX(10deg); } 50% { transform: translateY(0) rotateX(0); } 75% { transform: translateY(-3px) rotateX(5deg); } }\n';
+    chars.forEach(function(c, i) {
+        c.style.display = 'inline-block';
+        c.style.animation = 'waveText ' + (2.5 + Math.random() * 0.5) + 's ease-in-out ' + (i * 0.04) + 's infinite';
+        c.style.transformStyle = 'preserve-3d';
+    });
+    style.textContent = keyframes;
+    document.head.appendChild(style);
+})();
+
+// ─── 47. HYBRID SPARKLE FOLLOW ────────────────────────────────────────────────
+
+(function() {
+    var container = document.createElement('div');
+    container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9995;';
+    document.body.appendChild(container);
+    var sparks = [];
+    document.addEventListener('mousemove', function(e) {
+        if (Math.random() > 0.7) return;
+        var spark = document.createElement('div');
+        var size = 2 + Math.random() * 4;
+        var colors = ['#3b82f6', '#06b6d4', '#8b5cf6', '#34d399'];
+        spark.style.cssText = 'position:absolute;width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:' + colors[Math.floor(Math.random() * colors.length)] + ';left:' + e.clientX + 'px;top:' + e.clientY + 'px;box-shadow:0 0 6px currentColor;transform:translate(-50%,-50%);';
+        container.appendChild(spark);
+        var dx = (Math.random() - 0.5) * 60;
+        var dy = (Math.random() - 0.5) * 60 - 30;
+        spark.style.transition = 'transform 0.8s ease-out, opacity 0.8s ease-out';
+        requestAnimationFrame(function() {
+            spark.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(0)';
+            spark.style.opacity = '0';
+        });
+        setTimeout(function() { spark.remove(); }, 900);
+    });
+})();
+
+// ─── 48. HYBRID PERSPECTIVE ON SECTION HEADERS ────────────────────────────────
+
+document.querySelectorAll('.section-header').forEach(function(header) {
+    header.style.transformStyle = 'preserve-3d';
+    header.style.perspective = '800px';
+    var title = header.querySelector('.section-title');
+    var tag = header.querySelector('.section-tag');
+    var sub = header.querySelector('.section-sub');
+    if (tag) { tag.style.transformStyle = 'preserve-3d'; tag.style.transition = 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1)'; }
+    if (title) { title.style.transformStyle = 'preserve-3d'; title.style.transition = 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.05s'; }
+    if (sub) { sub.style.transformStyle = 'preserve-3d'; sub.style.transition = 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.1s'; }
+    header.addEventListener('mousemove', function(e) {
+        var rect = header.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width - 0.5;
+        var y = (e.clientY - rect.top) / rect.height - 0.5;
+        if (tag) tag.style.transform = 'perspective(500px) translateZ(20px) rotateY(' + (x * 10) + 'deg) rotateX(' + (y * -6) + 'deg)';
+        if (title) title.style.transform = 'perspective(500px) translateZ(10px) rotateY(' + (x * 6) + 'deg) rotateX(' + (y * -4) + 'deg)';
+        if (sub) sub.style.transform = 'perspective(500px) translateZ(5px) rotateY(' + (x * 4) + 'deg) rotateX(' + (y * -2) + 'deg)';
+    });
+    header.addEventListener('mouseleave', function() {
+        if (tag) tag.style.transform = '';
+        if (title) title.style.transform = '';
+        if (sub) sub.style.transform = '';
+    });
+});
+
 // ─── 9. (legacy) CLICKABLE PROJECT CARDS + 3D TILT ────────────────────────────
 
 document.querySelectorAll('.project-card').forEach(card => {
