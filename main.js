@@ -594,6 +594,179 @@ document.querySelectorAll('.form-group input, .form-group textarea').forEach(inp
     });
 })();
 
+// ─── 32. 3D MOUSE TRAIL ───────────────────────────────────────────────────────
+
+(function() {
+    const trail = document.createElement('div');
+    trail.id = 'mouse-trail';
+    trail.style.cssText = 'position:fixed;pointer-events:none;z-index:9997;';
+    document.body.appendChild(trail);
+    const dots = [];
+    var count = 12;
+    for (var i = 0; i < count; i++) {
+        var dot = document.createElement('div');
+        var size = 4 - i * 0.25;
+        var alpha = 0.3 - i * 0.025;
+        dot.style.cssText = 'position:fixed;border-radius:50%;pointer-events:none;background:rgba(59,130,246,' + alpha + ');width:' + size + 'px;height:' + size + 'px;transform:translate(-50%,-50%);transition:left 0.1s ease-out,top 0.1s ease-out;';
+        trail.appendChild(dot);
+        dots.push({ el: dot, x: 0, y: 0 });
+    }
+    var pos = { x: 0, y: 0 };
+    document.addEventListener('mousemove', function(e) {
+        pos.x = e.clientX;
+        pos.y = e.clientY;
+    });
+    function animateTrail() {
+        dots[0].el.style.left = pos.x + 'px';
+        dots[0].el.style.top = pos.y + 'px';
+        for (var i = 1; i < dots.length; i++) {
+            dots[i].x += (dots[i - 1].x - dots[i].x) * 0.35;
+            dots[i].y += (dots[i - 1].y - dots[i].y) * 0.35;
+            dots[i].el.style.left = dots[i].x + 'px';
+            dots[i].el.style.top = dots[i].y + 'px';
+        }
+        for (var i = 0; i < dots.length; i++) {
+            dots[i].x = parseFloat(dots[i].el.style.left) || pos.x;
+            dots[i].y = parseFloat(dots[i].el.style.top) || pos.y;
+        }
+        requestAnimationFrame(animateTrail);
+    }
+    animateTrail();
+})();
+
+// ─── 33. 3D SCROLL TEXT REVEAL (perspective cascade) ───────────────────────────
+
+(function() {
+    const els = document.querySelectorAll('.about-text p, .service-card p, .achievement-info p, .timeline-content p, .testimonial-card > p');
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'perspective(600px) translateZ(0) rotateX(0)';
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    els.forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'perspective(600px) translateZ(-40px) rotateX(4deg)';
+        el.style.transitionDelay = (i % 5) * 0.08 + 's';
+        obs.observe(el);
+    });
+})();
+
+// ─── 34. 3D STAGGER CASCADE REVEAL ─────────────────────────────────────────────
+
+(function() {
+    const grids = document.querySelectorAll('.skills-grid, .project-grid, .services-grid, .testimonials-grid, .achievements-grid');
+    grids.forEach(grid => {
+        const children = grid.children;
+        Array.from(children).forEach((child, i) => {
+            child.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            child.style.transitionDelay = i * 0.06 + 's';
+        });
+    });
+})();
+
+// ─── 35. 3D ANIMATED GRADIENT ON NAME ──────────────────────────────────────────
+
+(function() {
+    const highlight = document.querySelector('.name-highlight');
+    if (highlight) {
+        highlight.style.backgroundSize = '200% 200%';
+        highlight.style.animation = 'gradientShift 4s ease infinite';
+    }
+})();
+
+// ─── 36. 3D DECORATIVE BG BLOBS ───────────────────────────────────────────────
+
+(function() {
+    const sections = document.querySelectorAll('.skills-section, .timeline-section, .achievements-section, .testimonials-section, .contact-section');
+    sections.forEach((section, si) => {
+        for (var i = 0; i < 2; i++) {
+            var blob = document.createElement('div');
+            var size = 150 + Math.random() * 200;
+            var x = Math.random() * 100;
+            var y = Math.random() * 100;
+            var colors = ['59,130,246', '6,182,212', '139,92,246', '52,211,153'];
+            var c = colors[(si + i) % colors.length];
+            blob.style.cssText = 'position:absolute;width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:radial-gradient(circle,rgba(' + c + ',0.04),transparent 70%);pointer-events:none;left:' + x + '%;top:' + y + '%;animation:blobFloat ' + (8 + Math.random() * 6) + 's ease-in-out ' + (Math.random() * 4) + 's infinite;z-index:0;';
+            section.style.position = 'relative';
+            section.appendChild(blob);
+        }
+    });
+})();
+
+// ─── 37. 3D NAV ACTIVE PULSE ───────────────────────────────────────────────────
+
+(function() {
+    const links = document.querySelectorAll('.nav-link');
+    const obs = new MutationObserver(() => {
+        links.forEach(link => {
+            if (link.classList.contains('active')) {
+                link.style.animation = 'navPulse 2s ease-in-out infinite';
+            } else {
+                link.style.animation = '';
+            }
+        });
+    });
+    links.forEach(link => {
+        obs.observe(link, { attributes: true, attributeFilter: ['class'] });
+    });
+})();
+
+// ─── 38. 3D HERO GLOW SHIFT ───────────────────────────────────────────────────
+
+(function() {
+    const glow = document.querySelector('.hero-glow');
+    if (glow) {
+        document.querySelector('.hero').addEventListener('mousemove', (e) => {
+            const rect = glow.parentElement.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width * 30 - 15;
+            const y = (e.clientY - rect.top) / rect.height * 30 - 15;
+            glow.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+        });
+    }
+})();
+
+// ─── 39. 3D SKILL STARS BOUNCE ─────────────────────────────────────────────────
+
+document.querySelectorAll('.skill-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        card.querySelectorAll('.skill-stars i').forEach((star, i) => {
+            star.style.transition = 'transform 0.3s cubic-bezier(0.34,1.56,0.64,1)';
+            star.style.transitionDelay = i * 0.05 + 's';
+            star.style.transform = 'translateY(-4px) scale(1.3)';
+        });
+    });
+    card.addEventListener('mouseleave', () => {
+        card.querySelectorAll('.skill-stars i').forEach(star => {
+            star.style.transform = '';
+        });
+    });
+});
+
+// ─── 40. 3D ANIMATED BORDER ON PROJECT CARDS ───────────────────────────────────
+
+document.querySelectorAll('.project-card').forEach(card => {
+    const border = document.createElement('div');
+    border.style.cssText = 'position:absolute;inset:-2px;border-radius:inherit;z-index:-1;background:conic-gradient(from var(--angle), transparent 40%, var(--primary) 50%, transparent 60%);animation:borderSpin 3s linear infinite;opacity:0;transition:opacity 0.4s ease;';
+    card.style.position = 'relative';
+    card.style.zIndex = '1';
+    card.prepend(border);
+    card.addEventListener('mouseenter', () => { border.style.opacity = '1'; });
+    card.addEventListener('mouseleave', () => { border.style.opacity = '0'; });
+});
+
+// ─── 41. 3D GRAIN OVERLAY ──────────────────────────────────────────────────────
+
+(function() {
+    const grain = document.createElement('div');
+    grain.style.cssText = 'position:fixed;inset:0;z-index:9996;pointer-events:none;opacity:0.03;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E");background-size:256px 256px;';
+    document.body.appendChild(grain);
+})();
+
 // ─── 9. (legacy) CLICKABLE PROJECT CARDS + 3D TILT ────────────────────────────
 
 document.querySelectorAll('.project-card').forEach(card => {
