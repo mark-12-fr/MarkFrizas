@@ -572,11 +572,12 @@ body {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;
-    transition: var(--transition);
+    transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 .project-card:hover {
     border-color: rgba(59,130,246,0.3);
-    transform: translateY(-10px);
     box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(59,130,246,0.15);
 }
 
