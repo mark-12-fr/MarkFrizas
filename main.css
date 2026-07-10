@@ -199,6 +199,9 @@ body {
 .img-frame {
     position: relative;
     width: 300px; height: 300px;
+    transition: transform 0.15s ease-out;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .img-frame img {
@@ -366,6 +369,15 @@ body {
     align-items: center; gap: 12px;
     text-align: center;
     transition: var(--transition); cursor: default;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+@keyframes float3d {
+    0%, 100% { transform: translateY(0px) rotateX(0deg); }
+    25% { transform: translateY(-6px) rotateX(2deg); }
+    50% { transform: translateY(-2px) rotateX(-1deg); }
+    75% { transform: translateY(-8px) rotateX(1deg); }
 }
 .skill-card i { font-size: 2rem; color: var(--primary); transition: var(--transition); }
 .skill-card span { font-weight: 600; font-size: 0.85rem; color: var(--text-muted); transition: var(--transition); }
@@ -410,7 +422,9 @@ body {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 36px 32px;
-    transition: var(--transition);
+    transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 .service-card:hover {
     border-color: var(--primary);
@@ -458,7 +472,9 @@ body {
     border-radius: var(--radius);
     padding: 28px 32px;
     display: flex; align-items: center; gap: 24px;
-    transition: var(--transition);
+    transition: transform 0.2s ease, border-color 0.3s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 .achievement-card:hover {
     border-color: var(--primary);

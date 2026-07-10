@@ -279,7 +279,77 @@ if (statNumbers.length) {
     statNumbers.forEach(s => countObserver.observe(s));
 }
 
-// ─── 9. CLICKABLE PROJECT CARDS + 3D TILT ────────────────────────────────────
+// ─── 9. HERO IMAGE 3D TILT ────────────────────────────────────────────────────
+
+(function() {
+    const imgFrame = document.querySelector('.img-frame');
+    if (!imgFrame) return;
+    const hero = document.querySelector('.hero');
+    hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        imgFrame.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${y * -6}deg)`;
+    });
+    hero.addEventListener('mouseleave', () => {
+        imgFrame.style.transform = '';
+    });
+})();
+
+// ─── 10. 3D FLOATING SKILL CARDS ──────────────────────────────────────────────
+
+(function() {
+    const cards = document.querySelectorAll('.skill-card');
+    cards.forEach((card, i) => {
+        const delay = i * 0.15;
+        const duration = 3 + (i % 3) * 0.5;
+        card.style.animation = `float3d ${duration}s ease-in-out ${delay}s infinite`;
+    });
+})();
+
+// ─── 11. SCROLL PARALLAX (3D depth) ───────────────────────────────────────────
+
+(function() {
+    const els = document.querySelectorAll('.section-header, .achievement-card, .service-card, .timeline-item');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const sy = window.scrollY;
+                els.forEach((el, i) => {
+                    const rect = el.getBoundingClientRect();
+                    const center = rect.top + rect.height / 2;
+                    if (center < window.innerHeight && center > -rect.height) {
+                        const depth = 0.02 + (i % 5) * 0.01;
+                        const yOff = (center - window.innerHeight / 2) * depth;
+                        el.style.transform = `translateY(${yOff}px)`;
+                    }
+                });
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+})();
+
+// ─── 12. SERVICE + ACHIEVEMENT CARD 3D TILT ───────────────────────────────────
+
+document.querySelectorAll('.service-card, .achievement-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${y * -4}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+    });
+});
+
+// ─── 13. 3D PARTICLE ENHANCEMENT (depth layers) ──────────────────────────────
+// (The existing particle system already runs; this is handled via Three.js scene)
+
+// ─── 9. (legacy) CLICKABLE PROJECT CARDS + 3D TILT ────────────────────────────
 
 document.querySelectorAll('.project-card').forEach(card => {
     const image = card.querySelector('.project-image');
