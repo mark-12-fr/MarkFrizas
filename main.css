@@ -167,11 +167,6 @@ body {
 }
 
 /* Subtle grid background */
-#particles-canvas {
-    position: absolute; inset: 0;
-    z-index: 0; pointer-events: none;
-}
-
 .hero-bg-grid {
     position: absolute; inset: 0;
     background-image:
@@ -233,12 +228,6 @@ body {
     padding: 6px 16px; border-radius: 50px;
     font-size: 0.8rem; font-weight: 600; color: var(--accent);
     letter-spacing: 0.5px;
-    transform-style: preserve-3d; will-change: transform;
-}
-
-@keyframes badgeFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
 }
 
 .cursor {
@@ -319,35 +308,10 @@ body {
     50% { transform: translateX(-50%) translateY(6px); }
 }
 
-@keyframes ripple3d {
-    to { transform: scale(3); opacity: 0; }
-}
-
 @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
-}
-
-@keyframes blobFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(20px, -20px) scale(1.1); }
-    66% { transform: translate(-15px, 15px) scale(0.95); }
-}
-
-@keyframes navPulse {
-    0%, 100% { text-shadow: 0 0 0 transparent; }
-    50% { text-shadow: 0 0 8px rgba(59,130,246,0.3); }
-}
-
-@property --angle {
-    syntax: '<angle>';
-    initial-value: 0deg;
-    inherits: false;
-}
-
-@keyframes borderSpin {
-    to { --angle: 360deg; }
 }
 
 /* --- BUTTONS --- */
@@ -415,13 +379,7 @@ body {
     will-change: transform;
 }
 
-@keyframes float3d {
-    0%, 100% { transform: translateY(0px) rotateX(0deg); }
-    25% { transform: translateY(-6px) rotateX(2deg); }
-    50% { transform: translateY(-2px) rotateX(-1deg); }
-    75% { transform: translateY(-8px) rotateX(1deg); }
-}
-.skill-card i { font-size: 2rem; color: var(--primary); transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease; display: inline-block; }
+.skill-card i { font-size: 2rem; color: var(--primary); transition: color 0.3s ease; }
 .skill-card span { font-weight: 600; font-size: 0.85rem; color: var(--text-muted); transition: var(--transition); }
 
 .skill-card:hover {
@@ -879,12 +837,6 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
     background: var(--primary);
     border: 3px solid var(--bg-2);
     box-shadow: 0 0 0 2px var(--primary);
-    transform-style: preserve-3d;
-}
-
-@keyframes pulse3d {
-    0%, 100% { box-shadow: 0 0 0 2px var(--primary), 0 0 0 0 rgba(59,130,246,0.3); transform: scale(1); }
-    50% { box-shadow: 0 0 0 2px var(--primary), 0 0 0 8px rgba(59,130,246,0); transform: scale(1.3); }
 }
 
 .timeline-date {
@@ -1002,40 +954,17 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
     .timeline { padding-left: 20px; }
 }
 
-/* --- MAGNETIC BUTTON ENHANCE --- */
-.btn { transition: transform 0.15s ease-out, color 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
-
-/* --- FIX LAYERING --- */
+/* --- LAYERING FIX --- */
 .hero { position: relative; z-index: 1; }
 .hero-container { position: relative; z-index: 2; }
 #three-container { z-index: 0 !important; }
-canvas[style*="position:absolute"][style*="inset:0"] { z-index: 0 !important; }
-
-/* --- LIGHT MODE SECTION WAVE ADAPT --- */
-body.light-mode .section-wave path { fill: #f8fafc !important; }
-
-/* --- SHIMMER OVERRIDE --- */
-.project-image { overflow: hidden; }
 
 /* --- LIGHT MODE FIXES --- */
 body.light-mode .skill-card i,
 body.light-mode .service-icon,
 body.light-mode .contact-item i { color: var(--primary); }
 
-/* --- ANIMATED BORDER FALLBACK --- */
-@supports not (--angle: 0deg) {
-    .project-card > div:first-child { display: none !important; }
-}
-
-/* --- FIX SCROLL PARALLAX CONFLICTS --- */
-.service-card, .timeline-item { transition: transform 0.3s ease, border-color 0.3s ease !important; }
-
 /* --- RESPECT REDUCED MOTION --- */
-@media (prefers-reduced-motion: reduce) {
-    .glitch-trigger:hover { animation: none !important; }
-}
-
-/* --- ACCESSIBILITY: respect reduced-motion preference --- */
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after {
