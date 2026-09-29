@@ -4,17 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#08090d">
-    <!-- Entry screen: shown once per browser session. Skipped for deep links (#section), ?skip, and when storage is unavailable. -->
-    <script>
-        (function () {
-            try {
-                var skip = location.hash || /[?&]skip\b/.test(location.search) || sessionStorage.getItem('mf_entered');
-                if (!skip) document.documentElement.classList.add('gate-on');
-            } catch (e) { /* no gate if storage is blocked */ }
-        })();
-    </script>
     <meta name="description" content="Mark Frizas — Full-Stack Developer. Building high-performance web apps including AI-powered dashboards and academic management systems.">
-    <meta name="keywords" content="Mark Frizas, Full-Stack Developer, Flask, Python, PostgreSQL, Web Developer, PHINMA">
+    <meta name="keywords" content="Mark Frizas, Full-Stack Developer, FastAPI, Python, React, Next.js, PostgreSQL, Web Developer, PHINMA">
     <meta name="author" content="Mark Frizas">
     <meta property="og:title" content="Mark Frizas | Portfolio">
     <meta property="og:description" content="Full-Stack Developer specializing in EdTech platforms and AI-powered dashboards.">
@@ -37,20 +28,6 @@
 </head>
 <body>
 
-    <!-- ===== ENTRY SCREEN (see inline script in <head> and main.js) ===== -->
-    <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
-        <img class="gate-photo" src="pic1.webp" alt="" width="960" height="1280" aria-hidden="true">
-        <div class="gate-shade"></div>
-        <div class="gate-word" aria-hidden="true">Mark Frizas</div>
-        <div class="gate-card">
-            <p class="gate-eyebrow">Full-Stack Developer · EdTech</p>
-            <h2 class="gate-title" id="gateTitle">See the <span class="hl">work</span></h2>
-            <p class="gate-sub">Python · Flask · PostgreSQL · EdTech systems.</p>
-            <button type="button" class="btn primary gate-btn" id="gateEnter">Enter site <i class="fas fa-arrow-right"></i></button>
-            <p class="gate-hint">or press Enter</p>
-        </div>
-    </div>
-
     <a href="#home" class="skip-link">Skip to content</a>
 
     <!-- ===== NAVIGATION ===== -->
@@ -65,7 +42,6 @@
                 <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#achievements" class="nav-link">Achievements</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
@@ -85,7 +61,6 @@
                 <li><a href="#services" class="mob-link">Services</a></li>
                 <li><a href="#achievements" class="mob-link">Achievements</a></li>
                 <li><a href="#projects" class="mob-link">Projects</a></li>
-                <li><a href="#testimonials" class="mob-link">Testimonials</a></li>
                 <li><a href="#contact" class="mob-link">Contact</a></li>
             </ul>
         </div>
@@ -97,9 +72,6 @@
         <div class="bgword" aria-hidden="true">Full-Stack</div>
         <div class="hero-photo reveal-right">
             <img src="pic1.webp" alt="Mark Frizas" width="960" height="1280" decoding="async" fetchpriority="high">
-        </div>
-        <div class="status-badge">
-            <span class="pulse-dot"></span> Active Developer
         </div>
         <div class="container hero-container">
             <div class="hero-text reveal-left">
@@ -169,7 +141,7 @@
             <div class="about-content reveal">
                 <div class="about-text">
                     <p>I'm an independent full-stack developer building production EdTech systems. My flagship product, <strong>AcadTrack</strong> — an AI-powered Academic Management System — was showcased at the <strong>2nd INNOVEX 2026 International Conference</strong>. The system handles enrollment, grading, and real-time learning analytics for students.</p>
-                    <p>I specialize in Python + Flask, PostgreSQL, and vanilla JavaScript. Whether it's complex educational workflows or data-driven dashboards, I build across the entire stack — from database architecture to pixel-perfect UI.</p>
+                    <p>I specialize in FastAPI, PostgreSQL, React, and Next.js. Whether it's complex educational workflows or data-driven dashboards, I build across the entire stack — from database architecture to pixel-perfect UI.</p>
                 </div>
                 <div class="about-stats">
                     <div class="stat">
@@ -181,7 +153,7 @@
                         <span class="stat-label">Live Demos</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number">Flask</span>
+                        <span class="stat-number">FastAPI</span>
                         <span class="stat-label">Main Stack</span>
                     </div>
                 </div>
@@ -322,7 +294,7 @@
                         <h3>Teacher Management Portal</h3>
                         <p>An AI-powered dashboard for educators at PHINMA University of Iloilo that streamlines classroom management, student performance analytics, and module tracking with real-time data sync.</p>
                         <div class="tech-used">
-                            <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Flask</span>
+                            <span>FastAPI</span><span>PostgreSQL</span><span>React</span><span>Next.js</span>
                         </div>
                         <div class="project-links">
                             <a href="https://teacher-panel-phi.vercel.app" target="_blank" rel="noopener noreferrer" class="demo-btn">Live Demo <i class="fas fa-external-link-alt"></i></a>
@@ -344,7 +316,7 @@
                         <h3>Facilitator Dashboard</h3>
                         <p>A mobile-first dashboard for facilitators to manage students, monitor module/activity submissions, and view class performance — companion app to the Teacher Panel.</p>
                         <div class="tech-used">
-                            <span>HTML5</span><span>CSS3</span><span>JavaScript</span>
+                            <span>React</span><span>FastAPI</span><span>Next.js</span>
                         </div>
                         <div class="project-links">
                             <a href="https://faci-panel.vercel.app" target="_blank" rel="noopener noreferrer" class="demo-btn">Live Demo <i class="fas fa-external-link-alt"></i></a>
@@ -378,66 +350,13 @@
         </div>
     </section>
 
-    <!-- ===== TESTIMONIALS ===== -->
-    <section id="testimonials" class="testimonials-section section-inverse">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="sec-num" aria-hidden="true">08</span>
-                <p class="section-tag mono">Feedback</p>
-                <h2 class="section-title">What People <span class="hl">Say</span></h2>
-                <p class="section-sub">Kind words from clients and collaborators.</p>
-            </div>
-            <div class="testimonials-grid reveal">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p>Mark delivered a robust academic management system that made our processes seamless. His attention to security and clean code made deployment effortless. A reliable developer to work with.</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar"><i class="fas fa-user"></i></div>
-                        <div>
-                            <strong>Client</strong>
-                            <span>Academic Institution</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p>Collaborating with Mark is always a great experience. His code is clean and well-structured, and he's quick to grasp requirements and help fellow developers solve tough problems.</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar"><i class="fas fa-user"></i></div>
-                        <div>
-                            <strong>Student Developer</strong>
-                            <span>BSIT, PHINMA University of Iloilo</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p>Mark is one of the most capable student developers I've mentored. His work on academic systems shows strong technical skill, clean execution, and genuine initiative in solving real problems.</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar"><i class="fas fa-user"></i></div>
-                        <div>
-                            <strong>Faculty Member</strong>
-                            <span>PHINMA University of Iloilo</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- ===== CONTACT ===== -->
     <section id="contact" class="contact-section">
         <div class="contact-glow"></div>
         <div class="bgword" aria-hidden="true">Let's Work</div>
         <div class="container">
             <div class="section-header reveal">
-                <span class="sec-num" aria-hidden="true">09</span>
+                <span class="sec-num" aria-hidden="true">08</span>
                 <p class="section-tag mono">Contact</p>
                 <h2 class="section-title">Let's <span class="hl">Connect</span></h2>
                 <p class="section-sub">Have a project in mind or just want to talk tech? Reach out.</p>

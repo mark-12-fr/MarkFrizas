@@ -103,7 +103,12 @@ body.light-mode {
 /* --- Reset & Base --- */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+
+/* Brief colour cross-fade when the theme is toggled (class is added by main.js, then removed). */
+html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
+    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, fill 0.35s ease;
+}
 
 body {
     font-family: var(--font-body);
@@ -366,24 +371,6 @@ body.light-mode .bgword { opacity: 0.55; }
 
 .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
 
-.status-badge {
-    position: absolute; z-index: 4;
-    right: clamp(16px, 6vw, 96px); bottom: clamp(28px, 9vh, 88px);
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--bg-card); border: 1px solid var(--border-strong);
-    padding: 8px 16px; border-radius: 999px;
-    font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500;
-    letter-spacing: 0.12em; text-transform: uppercase; color: var(--text);
-}
-.pulse-dot {
-    width: 8px; height: 8px; border-radius: 50%; background: var(--success);
-    animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.5); }
-    50% { box-shadow: 0 0 0 6px rgba(52,211,153,0); }
-}
-
 /* --- TECH STACK --- */
 .skills-section { padding: var(--section-pad) 0; background: var(--bg-2); position: relative; }
 
@@ -600,34 +587,6 @@ body.light-mode .bgword { opacity: 0.55; }
 .github-link:hover { border-color: var(--primary); }
 .github-link:hover i { transform: none; color: var(--primary-text); }
 
-/* --- TESTIMONIALS (paper) --- */
-.testimonials-section { padding: var(--section-pad) 0; }
-.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.testimonial-card {
-    display: flex; flex-direction: column;
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 30px 28px 28px;
-    transition: border-color 0.25s ease, transform 0.25s var(--ease);
-}
-.testimonial-card:hover { border-color: var(--primary); transform: translateY(-4px); }
-.testimonial-card::before {
-    content: '\201C'; display: block; height: 40px; margin-bottom: 6px;
-    font-family: var(--font-display); font-size: 5.5rem; line-height: 0.9; color: var(--primary);
-}
-.testimonial-stars { display: flex; gap: 3px; margin-bottom: 14px; font-size: 0.75rem; color: var(--primary-text); }
-.testimonial-card > p { flex: 1; margin-bottom: 24px; font-size: 1rem; line-height: 1.7; color: var(--text); }
-.testimonial-author {
-    display: flex; align-items: center; gap: 12px;
-    border-top: 1px solid var(--border); padding-top: 18px;
-}
-.author-avatar {
-    width: 42px; height: 42px; flex-shrink: 0; border-radius: 50%;
-    background: var(--primary); color: #fff;
-    display: flex; align-items: center; justify-content: center;
-}
-.testimonial-author strong { display: block; font-size: 0.92rem; }
-.testimonial-author span { display: block; font-size: 0.8rem; color: var(--text-muted); }
-
 /* --- CONTACT --- */
 .contact-section {
     padding: var(--section-pad) 0 calc(var(--section-pad) + clamp(70px, 12vw, 150px));
@@ -683,57 +642,6 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
 .footer-socials a { color: var(--text-muted); font-size: 1.05rem; text-decoration: none; transition: color 0.2s ease; }
 .footer-socials a:hover { color: var(--primary-text); }
 
-/* --- ENTRY SCREEN (always dark; independent of the theme toggle) --- */
-.gate { display: none; }
-html.gate-on, html.gate-on body { overflow: hidden; }
-html.gate-on .gate { display: flex; }
-.gate {
-    position: fixed; inset: 0; z-index: 3000;
-    align-items: center; justify-content: center;
-    background: #08090d; color: #f3f4f7; overflow: hidden;
-    transition: opacity 0.45s ease, transform 0.45s var(--ease);
-}
-.gate.leaving { opacity: 0; transform: scale(1.04); pointer-events: none; }
-.gate-photo {
-    position: absolute; top: -5%; left: -5%; width: 110%; height: 110%;
-    object-fit: cover; object-position: 50% 18%;
-    filter: blur(16px) saturate(0.95) brightness(0.68);
-}
-.gate-shade {
-    position: absolute; inset: 0;
-    background:
-        radial-gradient(70% 60% at 72% 88%, rgba(225,29,46,0.45), transparent 70%),
-        linear-gradient(180deg, rgba(8,9,13,0.5), rgba(8,9,13,0.86));
-}
-.gate-word {
-    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-    font-family: var(--font-display); font-size: clamp(9rem, 32vw, 30rem); line-height: 1;
-    text-transform: uppercase; white-space: nowrap; pointer-events: none; user-select: none;
-    color: transparent;
-    background: linear-gradient(180deg, rgba(225,29,46,0.6), rgba(225,29,46,0.05) 85%);
-    -webkit-background-clip: text; background-clip: text;
-}
-.gate-card {
-    position: relative; z-index: 2; text-align: center;
-    width: min(92vw, 500px); padding: clamp(28px, 5vw, 44px) clamp(22px, 5vw, 52px);
-    background: rgba(8,9,13,0.55); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
-    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-}
-.gate-eyebrow, .gate-hint {
-    font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500;
-    letter-spacing: 0.16em; text-transform: uppercase;
-}
-.gate-eyebrow { color: #ff5560; margin-bottom: 14px; }
-.gate-title {
-    font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
-    font-size: clamp(3.4rem, 10vw, 5.6rem); line-height: 0.92; letter-spacing: 0.005em; margin-bottom: 16px;
-}
-.gate-title .hl { color: #e11d2e; }
-.gate-sub { color: #b4bac8; margin-bottom: 26px; }
-.gate-btn { font-size: 1rem; padding: 15px 32px; }
-.gate-hint { color: #8b93a3; margin-top: 16px; }
-.gate :focus-visible { outline-color: #fff; }
-
 /* --- RESPONSIVE --- */
 @media (max-width: 1080px) {
     .theme-toggle { margin-left: auto; margin-right: 10px; }
@@ -751,19 +659,16 @@ html.gate-on .gate { display: flex; }
     }
     .hero-photo img { object-position: 50% 8%; }
     .hero-photo::after { background: radial-gradient(70% 45% at 85% 85%, rgba(225,29,46,0.5), transparent 70%); }
-    .status-badge { right: 16px; bottom: auto; top: 84px; }
     .hero-container { padding-top: max(52svh, 360px); }
     .hero-text { max-width: none; }
 
     .about-content { grid-template-columns: 1fr; }
     .services-grid { grid-template-columns: 1fr; }
-    .testimonials-grid { grid-template-columns: 1fr; }
     .contact-wrapper { grid-template-columns: 1fr; }
     .footer-inner { flex-direction: column; text-align: center; }
 }
 
 @media (max-width: 640px) {
-    .gate-word { top: 78%; }
     .section-header { grid-template-columns: 1fr; }
     .sec-num { grid-row: auto; margin-bottom: 10px; font-size: 5rem; }
     .section-header > :not(.sec-num) { grid-column: 1; }
