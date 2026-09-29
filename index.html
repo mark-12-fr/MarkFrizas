@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#08090d">
+    <!-- Entry screen: shown once per browser session. Skipped for deep links (#section), ?skip, and when storage is unavailable. -->
+    <script>
+        (function () {
+            try {
+                var skip = location.hash || /[?&]skip\b/.test(location.search) || sessionStorage.getItem('mf_entered');
+                if (!skip) document.documentElement.classList.add('gate-on');
+            } catch (e) { /* no gate if storage is blocked */ }
+        })();
+    </script>
     <meta name="description" content="Mark Frizas — Full-Stack Developer. Building high-performance web apps including AI-powered dashboards and academic management systems.">
     <meta name="keywords" content="Mark Frizas, Full-Stack Developer, Flask, Python, PostgreSQL, Web Developer, PHINMA">
     <meta name="author" content="Mark Frizas">
@@ -27,6 +36,20 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
+
+    <!-- ===== ENTRY SCREEN (see inline script in <head> and main.js) ===== -->
+    <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+        <img class="gate-photo" src="pic1.webp" alt="" width="960" height="1280" aria-hidden="true">
+        <div class="gate-shade"></div>
+        <div class="gate-word" aria-hidden="true">Mark Frizas</div>
+        <div class="gate-card">
+            <p class="gate-eyebrow">Full-Stack Developer · EdTech</p>
+            <h2 class="gate-title" id="gateTitle">See the <span class="hl">work</span></h2>
+            <p class="gate-sub">Python · Flask · PostgreSQL · EdTech systems.</p>
+            <button type="button" class="btn primary gate-btn" id="gateEnter">Enter site <i class="fas fa-arrow-right"></i></button>
+            <p class="gate-hint">or press Enter</p>
+        </div>
+    </div>
 
     <a href="#home" class="skip-link">Skip to content</a>
 
@@ -72,15 +95,13 @@
     <header id="home" class="hero">
         <div class="hero-glow"></div>
         <div class="bgword" aria-hidden="true">Full-Stack</div>
+        <div class="hero-photo reveal-right">
+            <img src="pic1.webp" alt="Mark Frizas" width="960" height="1280" decoding="async" fetchpriority="high">
+        </div>
+        <div class="status-badge">
+            <span class="pulse-dot"></span> Active Developer
+        </div>
         <div class="container hero-container">
-            <div class="hero-image reveal-right">
-                <div class="img-frame">
-                    <img src="pic1.webp" alt="Mark Frizas" width="600" height="800" decoding="async" fetchpriority="high">
-                </div>
-                <div class="status-badge">
-                    <span class="pulse-dot"></span> Active Developer
-                </div>
-            </div>
             <div class="hero-text reveal-left">
                 <p class="eyebrow"><span class="mono">&lt;</span> <span id="typewriter"></span><span class="cursor">|</span> <span class="mono">/&gt;</span></p>
                 <h1>
@@ -283,13 +304,13 @@
         <div class="container">
             <div class="section-header reveal">
                 <span class="sec-num" aria-hidden="true">07</span>
-                <p class="section-tag mono">Work</p>
+                <p class="section-tag mono">Selected work</p>
                 <h2 class="section-title">Latest <span class="hl">Projects</span></h2>
                 <p class="section-sub">A selection of things I've built and shipped.</p>
             </div>
             <div class="project-grid">
                 <article class="project-card reveal">
-                    <div class="project-image">
+                    <div class="project-image" data-host="teacher-panel-phi.vercel.app">
                         <a class="overlay" href="https://teacher-panel-phi.vercel.app" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
                             <span><i class="fas fa-arrow-up-right-from-square"></i> View Demo</span>
                         </a>
@@ -311,7 +332,7 @@
                 </article>
 
                 <article class="project-card reveal">
-                    <div class="project-image">
+                    <div class="project-image" data-host="faci-panel.vercel.app">
                         <a class="overlay" href="https://faci-panel.vercel.app" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
                             <span><i class="fas fa-arrow-up-right-from-square"></i> View Demo</span>
                         </a>
@@ -333,7 +354,7 @@
                 </article>
 
                 <article class="project-card reveal">
-                    <div class="project-image">
+                    <div class="project-image" data-host="shopper-self-omega.vercel.app">
                         <a class="overlay" href="https://shopper-self-omega.vercel.app" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
                             <span><i class="fas fa-arrow-up-right-from-square"></i> View Demo</span>
                         </a>

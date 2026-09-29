@@ -2,6 +2,53 @@
    MARK FRIZAS PORTFOLIO — MAIN SCRIPTS (Professional)
    ============================================= */
 
+// ─── 0. ENTRY SCREEN ─────────────────────────────────────────────────────────
+// Opt-in per session (inline script in <head> sets html.gate-on). It never shows for deep
+// links, ?skip, or when storage is blocked, and any error here must not trap the visitor.
+
+const gate = document.getElementById('gate');
+let gateWaiting = false;           // true while the hero reveals should wait for the gate
+let onGateClosed = () => {};
+
+if (gate && document.documentElement.classList.contains('gate-on')) {
+    try {
+        const pageBlocks = [...document.body.children].filter(el => el !== gate && el.tagName !== 'SCRIPT');
+        pageBlocks.forEach(el => el.setAttribute('inert', ''));
+        const enterBtn = document.getElementById('gateEnter');
+        enterBtn.focus({ preventScroll: true });
+
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let closing = false;
+        const onKey = (e) => {
+            if (e.key === 'Enter' || e.key === 'Escape') { e.preventDefault(); closeGate(); }
+        };
+        const closeGate = () => {
+            if (closing) return;
+            closing = true;
+            document.removeEventListener('keydown', onKey);
+            try { sessionStorage.setItem('mf_entered', '1'); } catch (e) { /* ignore */ }
+            gate.classList.add('leaving');
+            setTimeout(() => {
+                document.documentElement.classList.remove('gate-on');
+                pageBlocks.forEach(el => el.removeAttribute('inert'));
+                const home = document.getElementById('home');
+                if (home) {
+                    home.setAttribute('tabindex', '-1');
+                    home.focus({ preventScroll: true });
+                    home.addEventListener('blur', () => home.removeAttribute('tabindex'), { once: true });
+                }
+                onGateClosed();
+            }, reduce ? 0 : 450);
+        };
+        enterBtn.addEventListener('click', closeGate);
+        document.addEventListener('keydown', onKey);
+        gateWaiting = true;
+    } catch (err) {
+        document.documentElement.classList.remove('gate-on');
+        document.querySelectorAll('[inert]').forEach(el => el.removeAttribute('inert'));
+    }
+}
+
 // ─── 1. NAVBAR: Scroll shrink + mobile hamburger ──────────────────────────────
 
 const navbar    = document.getElementById('navbar');
@@ -38,9 +85,13 @@ const revealObserver = new IntersectionObserver(
     { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
 );
 
+// While the entry screen is open the hero waits, so its reveal plays when the visitor enters.
+const heroReveals = [];
 document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+    if (gateWaiting && el.closest('.hero')) { heroReveals.push(el); return; }
     revealObserver.observe(el);
 });
+onGateClosed = () => heroReveals.forEach(el => revealObserver.observe(el));
 
 // ─── 3. ACTIVE NAV LINK highlight on scroll ───────────────────────────────────
 
