@@ -57,7 +57,8 @@ const sectionObserver = new IntersectionObserver(
             }
         });
     },
-    { threshold: 0.45 }
+    // Fires when a section crosses the middle band of the viewport, so tall sections still register.
+    { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
 );
 
 sections.forEach(s => sectionObserver.observe(s));
@@ -140,9 +141,15 @@ if (typewriterEl) {
 
 const statNumbers = document.querySelectorAll('.stat-number[data-count]');
 if (statNumbers.length) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     function countUp(el) {
         const target = parseInt(el.dataset.count, 10);
         const suffix = el.dataset.suffix || '';
+        if (reduceMotion) {
+            el.textContent = target + suffix;
+            return;
+        }
         const duration = 1200;
         const start = performance.now();
         function tick(now) {
@@ -162,5 +169,8 @@ if (statNumbers.length) {
             }
         });
     }, { threshold: 0.5 });
-    statNumbers.forEach(s => countObserver.observe(s));
+    statNumbers.forEach(s => {
+        if (!reduceMotion) s.textContent = '0';   // HTML holds the real value; animate up from 0
+        countObserver.observe(s);
+    });
 }

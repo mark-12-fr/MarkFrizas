@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#08090d">
     <meta name="description" content="Mark Frizas — Full-Stack Developer. Building high-performance web apps including AI-powered dashboards and academic management systems.">
     <meta name="keywords" content="Mark Frizas, Full-Stack Developer, Flask, Python, PostgreSQL, Web Developer, PHINMA">
     <meta name="author" content="Mark Frizas">
@@ -18,12 +19,12 @@
     <meta name="twitter:image" content="https://markfrizas.vercel.app/pic1.jpg">
     <link rel="canonical" href="https://markfrizas.vercel.app/">
     <title>Mark Frizas | Full-Stack Developer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <!-- Fonts are self-hosted (see main.css) -->
+    <link rel="preload" href="fonts/anton-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%233b82f6'/><text x='50' y='68' font-size='55' font-weight='800' fill='white' text-anchor='middle'>MF</text></svg>" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23e11d2e'/><text x='50' y='68' font-size='55' font-weight='800' fill='white' text-anchor='middle'>MF</text></svg>" type="image/svg+xml">
     <link rel="stylesheet" href="main.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
@@ -69,39 +70,39 @@
 
     <!-- ===== HERO ===== -->
     <header id="home" class="hero">
-        <div class="hero-bg-grid"></div>
         <div class="hero-glow"></div>
+        <div class="bgword" aria-hidden="true">Full-Stack</div>
         <div class="container hero-container">
-            <div class="hero-image reveal-left">
+            <div class="hero-image reveal-right">
                 <div class="img-frame">
                     <img src="pic1.webp" alt="Mark Frizas" width="600" height="800" decoding="async" fetchpriority="high">
-                    <div class="img-border-anim"></div>
                 </div>
                 <div class="status-badge">
                     <span class="pulse-dot"></span> Active Developer
                 </div>
             </div>
-            <div class="hero-text reveal-right">
+            <div class="hero-text reveal-left">
                 <p class="eyebrow"><span class="mono">&lt;</span> <span id="typewriter"></span><span class="cursor">|</span> <span class="mono">/&gt;</span></p>
-                <h1>Hi, I'm<br><span class="name-highlight">Mark Frizas</span></h1>
+                <h1>
+                    <span class="hi">Hi, I'm</span>
+                    <span class="name-line">Mark</span>
+                    <span class="name-line name-highlight">Frizas</span>
+                </h1>
                 <p class="description">
                     A dedicated Full-Stack Developer focused on building
                     production-grade EdTech systems. I craft elegant digital solutions
                     — from AI-powered academic dashboards to real-time mobile tools.
                 </p>
                 <div class="social-icons">
-                    <a href="https://github.com/mark-12-fr" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://linkedin.com/in/mark-frizas-5034a6346/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/mark-12-fr" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/mark-frizas-5034a6346/" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 </div>
                 <div class="hero-btns">
-                    <a href="#projects" class="btn primary">Explore My Work</a>
-                    <a href="resume.html" target="_blank" class="btn secondary"><i class="fas fa-file-arrow-down"></i> Resume</a>
+                    <a href="#projects" class="btn primary">Explore My Work <i class="fas fa-arrow-right"></i></a>
+                    <a href="resume.html" target="_blank" rel="noopener" class="btn secondary"><i class="fas fa-file-arrow-down"></i> Resume</a>
                     <a href="#contact" class="btn secondary">Let's Talk</a>
                 </div>
             </div>
-        </div>
-        <div class="scroll-hint">
-            <div class="scroll-line"></div>
         </div>
     </header>
 
@@ -109,8 +110,9 @@
     <section id="about" class="skills-section">
         <div class="container">
             <div class="section-header reveal">
-                <p class="section-tag mono">02. expertise</p>
-                <h2 class="section-title">My Tech Stack</h2>
+                <span class="sec-num" aria-hidden="true">02</span>
+                <p class="section-tag mono">Expertise</p>
+                <h2 class="section-title">My Tech <span class="hl">Stack</span></h2>
                 <p class="section-sub">Technologies I use to bring ideas to life.</p>
             </div>
             <div class="skills-grid reveal">
@@ -136,11 +138,12 @@
     </section>
 
     <!-- ===== ABOUT ME ===== -->
-    <section id="about-me" class="about-section">
+    <section id="about-me" class="about-section section-inverse">
         <div class="container">
             <div class="section-header reveal">
-                <p class="section-tag mono">03. about</p>
-                <h2 class="section-title">About Me</h2>
+                <span class="sec-num" aria-hidden="true">03</span>
+                <p class="section-tag mono">About</p>
+                <h2 class="section-title">About <span class="hl">Me</span></h2>
             </div>
             <div class="about-content reveal">
                 <div class="about-text">
@@ -149,11 +152,11 @@
                 </div>
                 <div class="about-stats">
                     <div class="stat">
-                        <span class="stat-number" data-count="3">0</span>
+                        <span class="stat-number" data-count="3">3</span>
                         <span class="stat-label">Projects Built</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number" data-count="3">0</span>
+                        <span class="stat-number" data-count="3">3</span>
                         <span class="stat-label">Live Demos</span>
                     </div>
                     <div class="stat">
@@ -169,13 +172,14 @@
     <section id="timeline" class="timeline-section">
         <div class="container">
             <div class="section-header reveal">
-                <p class="section-tag mono">04. journey</p>
-                <h2 class="section-title">My Path</h2>
+                <span class="sec-num" aria-hidden="true">04</span>
+                <p class="section-tag mono">Journey</p>
+                <h2 class="section-title">My <span class="hl">Path</span></h2>
                 <p class="section-sub">Milestones that shaped my career.</p>
             </div>
             <div class="timeline">
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-dot" aria-hidden="true"></div>
                     <div class="timeline-date">2026 — Present</div>
                     <div class="timeline-content">
                         <h3>Independent Developer — EdTech Solutions</h3>
@@ -183,7 +187,7 @@
                     </div>
                 </div>
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-dot" aria-hidden="true"></div>
                     <div class="timeline-date">2026</div>
                     <div class="timeline-content">
                         <h3>Shopper — Premium E-Commerce PWA</h3>
@@ -191,7 +195,7 @@
                     </div>
                 </div>
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-dot" aria-hidden="true"></div>
                     <div class="timeline-date">2026</div>
                     <div class="timeline-content">
                         <h3>AcadTrack @ INNOVEX 2026</h3>
@@ -199,24 +203,24 @@
                     </div>
                 </div>
                 <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
+                    <div class="timeline-dot" aria-hidden="true"></div>
                     <div class="timeline-date">2026</div>
                     <div class="timeline-content">
                         <h3>Full-Stack Developer — PHINMA University</h3>
                         <p>Developed the Teacher Management Portal and Facilitator Dashboard — real-time analytics tools used by educators and facilitators across the university.</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
     <!-- ===== SERVICES ===== -->
-    <section id="services" class="services-section">
+    <section id="services" class="services-section section-inverse">
         <div class="container">
             <div class="section-header reveal">
-                <p class="section-tag mono">05. services</p>
-                <h2 class="section-title">What I Build</h2>
+                <span class="sec-num" aria-hidden="true">05</span>
+                <p class="section-tag mono">Services</p>
+                <h2 class="section-title">What I <span class="hl">Build</span></h2>
                 <p class="section-sub">End-to-end solutions from concept to deployment.</p>
             </div>
             <div class="services-grid reveal">
@@ -243,8 +247,9 @@
     <section id="achievements" class="achievements-section">
         <div class="container">
             <div class="section-header reveal">
-                <p class="section-tag mono">06. achievements</p>
-                <h2 class="section-title">Milestones & Recognition</h2>
+                <span class="sec-num" aria-hidden="true">06</span>
+                <p class="section-tag mono">Achievements</p>
+                <h2 class="section-title">Milestones &amp; <span class="hl">Recognition</span></h2>
                 <p class="section-sub">Key moments that mark my journey.</p>
             </div>
             <div class="achievements-grid reveal">
@@ -262,7 +267,6 @@
                         <p>AcadTrack is deployed online at acadtrack.asia, handling enrollment, grading, and analytics for students.</p>
                     </div>
                 </div>
-
                 <div class="achievement-card">
                     <div class="achievement-icon"><i class="fas fa-code"></i></div>
                     <div class="achievement-info">
@@ -278,16 +282,17 @@
     <section id="projects" class="projects-section">
         <div class="container">
             <div class="section-header reveal">
-                <p class="section-tag mono">07. work</p>
-                <h2 class="section-title">Latest Projects</h2>
+                <span class="sec-num" aria-hidden="true">07</span>
+                <p class="section-tag mono">Work</p>
+                <h2 class="section-title">Latest <span class="hl">Projects</span></h2>
                 <p class="section-sub">A selection of things I've built and shipped.</p>
             </div>
             <div class="project-grid">
                 <article class="project-card reveal">
                     <div class="project-image">
-                        <div class="overlay">
+                        <a class="overlay" href="https://teacher-panel-phi.vercel.app" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
                             <span><i class="fas fa-arrow-up-right-from-square"></i> View Demo</span>
-                        </div>
+                        </a>
                         <img src="teacher-panel.webp" alt="Teacher Management Portal" width="800" height="417" loading="lazy" decoding="async">
                         <div class="project-tag">Web App</div>
                         <span class="project-status live">Live</span>
@@ -299,17 +304,17 @@
                             <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Flask</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://teacher-panel-phi.vercel.app" target="_blank" class="demo-btn">Live Demo <i class="fas fa-external-link-alt"></i></a>
-                            <a href="https://github.com/mark-12-fr/teacher-panel" target="_blank" class="demo-btn github-link" title="Source Code"><i class="fab fa-github"></i></a>
+                            <a href="https://teacher-panel-phi.vercel.app" target="_blank" rel="noopener noreferrer" class="demo-btn">Live Demo <i class="fas fa-external-link-alt"></i></a>
+                            <a href="https://github.com/mark-12-fr/teacher-panel" target="_blank" rel="noopener noreferrer" class="demo-btn github-link" title="Source Code" aria-label="Teacher Management Portal source code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </article>
 
                 <article class="project-card reveal">
                     <div class="project-image">
-                        <div class="overlay">
+                        <a class="overlay" href="https://faci-panel.vercel.app" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
                             <span><i class="fas fa-arrow-up-right-from-square"></i> View Demo</span>
-                        </div>
+                        </a>
                         <img src="faci-panel.webp" alt="Facilitator Dashboard" width="591" height="1280" loading="lazy" decoding="async">
                         <div class="project-tag">Web App</div>
                         <span class="project-status live">Live</span>
@@ -321,19 +326,17 @@
                             <span>HTML5</span><span>CSS3</span><span>JavaScript</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://faci-panel.vercel.app" target="_blank" class="demo-btn">Live Demo <i class="fas fa-external-link-alt"></i></a>
-                            <a href="https://github.com/mark-12-fr/faci-panel" target="_blank" class="demo-btn github-link" title="Source Code"><i class="fab fa-github"></i></a>
+                            <a href="https://faci-panel.vercel.app" target="_blank" rel="noopener noreferrer" class="demo-btn">Live Demo <i class="fas fa-external-link-alt"></i></a>
+                            <a href="https://github.com/mark-12-fr/faci-panel" target="_blank" rel="noopener noreferrer" class="demo-btn github-link" title="Source Code" aria-label="Facilitator Dashboard source code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </article>
 
-
-
                 <article class="project-card reveal">
                     <div class="project-image">
-                        <div class="overlay">
+                        <a class="overlay" href="https://shopper-self-omega.vercel.app" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
                             <span><i class="fas fa-arrow-up-right-from-square"></i> View Demo</span>
-                        </div>
+                        </a>
                         <img src="shopper.webp" alt="Shopper" width="800" height="392" loading="lazy" decoding="async">
                         <div class="project-tag">Web App</div>
                         <span class="project-status live">Live</span>
@@ -345,8 +348,8 @@
                             <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Flask</span><span>PostgreSQL</span><span>PWA</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://shopper-self-omega.vercel.app" target="_blank" class="demo-btn">Live Demo <i class="fas fa-external-link-alt"></i></a>
-                            <a href="https://github.com/mark-12-fr/shopper" target="_blank" class="demo-btn github-link" title="Source Code"><i class="fab fa-github"></i></a>
+                            <a href="https://shopper-self-omega.vercel.app" target="_blank" rel="noopener noreferrer" class="demo-btn">Live Demo <i class="fas fa-external-link-alt"></i></a>
+                            <a href="https://github.com/mark-12-fr/shopper" target="_blank" rel="noopener noreferrer" class="demo-btn github-link" title="Source Code" aria-label="Shopper source code"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </article>
@@ -355,11 +358,12 @@
     </section>
 
     <!-- ===== TESTIMONIALS ===== -->
-    <section id="testimonials" class="testimonials-section">
+    <section id="testimonials" class="testimonials-section section-inverse">
         <div class="container">
             <div class="section-header reveal">
-                <p class="section-tag mono">08. feedback</p>
-                <h2 class="section-title">What People Say</h2>
+                <span class="sec-num" aria-hidden="true">08</span>
+                <p class="section-tag mono">Feedback</p>
+                <h2 class="section-title">What People <span class="hl">Say</span></h2>
                 <p class="section-sub">Kind words from clients and collaborators.</p>
             </div>
             <div class="testimonials-grid reveal">
@@ -367,7 +371,7 @@
                     <div class="testimonial-stars">
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
-                    <p>"Mark delivered a robust academic management system that made our processes seamless. His attention to security and clean code made deployment effortless. A reliable developer to work with."</p>
+                    <p>Mark delivered a robust academic management system that made our processes seamless. His attention to security and clean code made deployment effortless. A reliable developer to work with.</p>
                     <div class="testimonial-author">
                         <div class="author-avatar"><i class="fas fa-user"></i></div>
                         <div>
@@ -380,7 +384,7 @@
                     <div class="testimonial-stars">
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
-                    <p>"Collaborating with Mark is always a great experience. His code is clean and well-structured, and he's quick to grasp requirements and help fellow developers solve tough problems."</p>
+                    <p>Collaborating with Mark is always a great experience. His code is clean and well-structured, and he's quick to grasp requirements and help fellow developers solve tough problems.</p>
                     <div class="testimonial-author">
                         <div class="author-avatar"><i class="fas fa-user"></i></div>
                         <div>
@@ -393,7 +397,7 @@
                     <div class="testimonial-stars">
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
-                    <p>"Mark is one of the most capable student developers I've mentored. His work on academic systems shows strong technical skill, clean execution, and genuine initiative in solving real problems."</p>
+                    <p>Mark is one of the most capable student developers I've mentored. His work on academic systems shows strong technical skill, clean execution, and genuine initiative in solving real problems.</p>
                     <div class="testimonial-author">
                         <div class="author-avatar"><i class="fas fa-user"></i></div>
                         <div>
@@ -409,10 +413,12 @@
     <!-- ===== CONTACT ===== -->
     <section id="contact" class="contact-section">
         <div class="contact-glow"></div>
+        <div class="bgword" aria-hidden="true">Let's Work</div>
         <div class="container">
             <div class="section-header reveal">
-                <p class="section-tag mono">09. contact</p>
-                <h2 class="section-title">Let's Connect</h2>
+                <span class="sec-num" aria-hidden="true">09</span>
+                <p class="section-tag mono">Contact</p>
+                <h2 class="section-title">Let's <span class="hl">Connect</span></h2>
                 <p class="section-sub">Have a project in mind or just want to talk tech? Reach out.</p>
             </div>
             <div class="contact-wrapper reveal">
@@ -428,20 +434,20 @@
                         <i class="fab fa-github"></i>
                         <div>
                             <p class="label">GitHub</p>
-                            <a href="https://github.com/mark-12-fr" target="_blank">github.com/mark-12-fr</a>
+                            <a href="https://github.com/mark-12-fr" target="_blank" rel="noopener noreferrer">github.com/mark-12-fr</a>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-linkedin"></i>
                         <div>
                             <p class="label">LinkedIn</p>
-                            <a href="https://linkedin.com/in/mark-frizas-5034a6346/" target="_blank">linkedin.com/in/mark-frizas-5034a6346</a>
+                            <a href="https://linkedin.com/in/mark-frizas-5034a6346/" target="_blank" rel="noopener noreferrer">linkedin.com/in/mark-frizas-5034a6346</a>
                         </div>
                     </div>
                 </div>
                 <div class="contact-form">
-                    <p style="color: var(--text-muted); margin-bottom: 24px; line-height: 1.7;">Send me an email directly — I'll get back to you as soon as possible.</p>
-                    <a href="mailto:markfrizas1@gmail.com?subject=Portfolio%20Inquiry" class="btn primary" style="justify-content:center;width:100%;font-size:1rem;">
+                    <p class="contact-note">Send me an email directly — I'll get back to you as soon as possible.</p>
+                    <a href="mailto:markfrizas1@gmail.com?subject=Portfolio%20Inquiry" class="btn primary btn-block">
                         <i class="fas fa-envelope"></i> markfrizas1@gmail.com
                     </a>
                 </div>
@@ -455,8 +461,8 @@
             <div class="logo">MF<span class="logo-dot">.</span></div>
             <p>&copy; 2026 Mark Frizas — Hand-crafted with passion.</p>
             <div class="footer-socials">
-                <a href="https://github.com/mark-12-fr" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com/in/mark-frizas-5034a6346/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/mark-12-fr" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/mark-frizas-5034a6346/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
             </div>
         </div>
     </footer>
@@ -464,6 +470,5 @@
     <script src="main.js"></script>
     <!-- Vercel Web Analytics (enable "Web Analytics" in the Vercel project dashboard) -->
     <script defer src="/_vercel/insights/script.js"></script>
-    <script src="scene3d.js"></script>
 </body>
 </html>
