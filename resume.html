@@ -24,15 +24,18 @@
         /* On-screen toolbar (hidden when printing) */
         .print-bar {
             position: sticky; top: 0; z-index: 10;
-            display: flex; align-items: center; justify-content: center; gap: 18px;
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 14px;
             padding: 12px; background: var(--accent);
         }
-        .print-bar button {
-            background: #fff; color: var(--accent); border: 0;
-            padding: 9px 20px; border-radius: 6px;
-            font-weight: 700; font-size: 0.85rem; cursor: pointer;
+        .print-bar .bar-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: #fff; color: var(--accent); border: 1px solid #fff;
+            padding: 9px 18px; border-radius: 6px; text-decoration: none;
+            font: inherit; font-weight: 700; font-size: 0.85rem; cursor: pointer;
         }
-        .print-bar a { color: #cbd5e1; text-decoration: none; font-size: 0.82rem; }
+        .print-bar .bar-btn svg { width: 15px; height: 15px; }
+        .print-bar .bar-btn.ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.45); }
+        .print-bar .back { color: #cbd5e1; text-decoration: none; font-size: 0.82rem; margin-left: 4px; }
 
         .page {
             max-width: 800px; margin: 22px auto; background: #fff;
@@ -107,9 +110,14 @@
     </style>
 </head>
 <body>
+    <!-- Mark_Frizas_Resume.pdf is a print of this page: regenerate it whenever the content below changes. -->
     <div class="print-bar">
-        <button onclick="window.print()">Download / Print as PDF</button>
-        <a href="index.html">&larr; Back to portfolio</a>
+        <a class="bar-btn" href="Mark_Frizas_Resume.pdf" download="Mark_Frizas_Resume.pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            Download PDF
+        </a>
+        <button type="button" class="bar-btn ghost" onclick="window.print()">Print</button>
+        <a class="back" href="index.html">&larr; Back to portfolio</a>
     </div>
 
     <div class="page">
