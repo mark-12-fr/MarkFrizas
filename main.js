@@ -110,7 +110,7 @@ if (themeToggle) {
 
 const typewriterEl = document.getElementById('typewriter');
 if (typewriterEl) {
-    const words = ['Full-Stack Developer', 'EdTech Systems Builder', 'AI-Powered Dashboards'];
+    const words = ['Full-Stack Developer', 'Web App Developer', 'Frontend + Backend'];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
