@@ -46,15 +46,16 @@
             text-transform: uppercase; color: var(--accent);
         }
         .role {
-            font-size: 1rem; letter-spacing: 3px; text-transform: uppercase;
+            font-size: 1rem; letter-spacing: 1.2px; text-transform: uppercase;
             color: var(--muted); margin-top: 4px; font-weight: 600;
         }
         .contact {
             margin-top: 12px; font-size: 0.82rem; color: var(--muted);
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px;
+            display: flex; flex-direction: column; align-items: center; gap: 3px;
         }
         .contact a { color: var(--muted); text-decoration: none; }
-        .contact span { color: var(--rule); }
+        .contact .sep { color: var(--rule); }
+        .contact-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; width: 100%; }
 
         /* Sections */
         section { margin-top: 24px; }
@@ -76,6 +77,9 @@
         .item-date {
             font-size: 0.8rem; color: var(--muted); white-space: nowrap; font-style: italic;
         }
+        .item-sub { font-size: 0.85rem; color: var(--muted); margin-top: 1px; }
+        .item-sub a { color: var(--accent); text-decoration: none; font-weight: 600; }
+        .item-sub em { font-style: normal; }
         .item p { color: var(--muted); margin-top: 2px; font-size: 0.92rem; }
         ul.bullets { margin: 3px 0 0 18px; }
         ul.bullets li { color: var(--muted); font-size: 0.92rem; margin-bottom: 2px; }
@@ -86,11 +90,19 @@
         .skills-label { font-weight: 700; flex: 0 0 130px; }
         .skills-val { color: var(--muted); flex: 1; min-width: 180px; }
 
-        @page { margin: 14mm; }
+        @page { margin: 12mm 13mm; }
         @media print {
-            body { background: #fff; font-size: 13px; }
+            html { font-size: 14px; }
+            body { background: #fff; font-size: 13px; line-height: 1.4; }
+            header { margin-bottom: 2px; }
+            .contact { margin-top: 8px; }
+            section { margin-top: 15px; }
+            h2 { margin-bottom: 8px; break-after: avoid; }
+            .skills-row { margin-bottom: 3px; }
+            .item { margin-bottom: 9px; }
             .print-bar { display: none; }
             .page { box-shadow: none; margin: 0; max-width: none; padding: 0; }
+            .item, .skills-row { break-inside: avoid; }
         }
     </style>
 </head>
@@ -105,20 +117,25 @@
             <h1>Mark Frizas</h1>
             <div class="role">Full-Stack Developer</div>
             <div class="contact">
-                <a href="mailto:markfrizas1@gmail.com">markfrizas1@gmail.com</a><span>|</span>
-                <a href="https://github.com/mark-12-fr" target="_blank" rel="noopener noreferrer">github.com/mark-12-fr</a><span>|</span>
-                <a href="https://linkedin.com/in/mark-frizas-5034a6346/" target="_blank" rel="noopener noreferrer">linkedin.com/in/mark-frizas-5034a6346</a>
+                <div class="contact-row">
+                    <span>Iloilo, Philippines</span><span class="sep">|</span>
+                    <a href="mailto:markfrizas1@gmail.com">markfrizas1@gmail.com</a><span class="sep">|</span>
+                    <a href="https://markfrizas.vercel.app" target="_blank" rel="noopener noreferrer">markfrizas.vercel.app</a>
+                </div>
+                <div class="contact-row">
+                    <a href="https://github.com/mark-12-fr" target="_blank" rel="noopener noreferrer">github.com/mark-12-fr</a><span class="sep">|</span>
+                    <a href="https://linkedin.com/in/mark-frizas-5034a6346/" target="_blank" rel="noopener noreferrer">linkedin.com/in/mark-frizas-5034a6346</a>
+                </div>
             </div>
         </header>
 
         <section>
             <h2>Professional Summary</h2>
             <p class="summary">
-                Full-stack developer specializing in FastAPI, PostgreSQL, React, and Next.js, with end-to-end
-                experience from database design to deployment. Creator of AcadTrack, an AI-powered
-                academic management system showcased at the 2nd INNOVEX 2026 International Conference.
-                Comfortable building secure REST APIs with token-based authentication, and clean,
-                responsive, mobile-first interfaces.
+                Full-stack developer and 3rd-year BSIT student who builds and deploys web apps with
+                Next.js (React, TypeScript), FastAPI, and PostgreSQL. Team lead of AcadTrack, an AI-assisted
+                academic management system presented at the 2nd INNOVEX 2026 International Conference in
+                Indonesia.
             </p>
         </section>
 
@@ -126,27 +143,66 @@
             <h2>Technical Skills</h2>
             <div class="skills-row">
                 <span class="skills-label">Languages</span>
-                <span class="skills-val">Python, JavaScript (ES6+), SQL</span>
-            </div>
-            <div class="skills-row">
-                <span class="skills-label">Backend</span>
-                <span class="skills-val">FastAPI, Flask, REST API design &amp; integration, JWT (JSON Web Token) authentication</span>
+                <span class="skills-val">Python, JavaScript (ES6+), TypeScript, SQL</span>
             </div>
             <div class="skills-row">
                 <span class="skills-label">Frontend</span>
-                <span class="skills-val">HTML5, CSS3, React, Next.js, EJS, Responsive Web Design, Progressive Web Apps (PWA), Service Workers, Web Push Notifications</span>
+                <span class="skills-val">React, Next.js, HTML5, CSS3, EJS, Chart.js, Progressive Web Apps (Service Workers, Web Push)</span>
+            </div>
+            <div class="skills-row">
+                <span class="skills-label">Backend</span>
+                <span class="skills-val">FastAPI, Flask, SQLAlchemy (async), REST APIs, JWT authentication, Groq &amp; Gemini AI APIs</span>
             </div>
             <div class="skills-row">
                 <span class="skills-label">Databases</span>
                 <span class="skills-val">PostgreSQL, Supabase, relational database design</span>
             </div>
             <div class="skills-row">
-                <span class="skills-label">Tools &amp; DevOps</span>
-                <span class="skills-val">Git, GitHub, Vercel, Render, CI/CD (continuous deployment)</span>
+                <span class="skills-label">Tools &amp; Cloud</span>
+                <span class="skills-val">Git, GitHub, Vercel, Railway, Render, CI/CD</span>
             </div>
             <div class="skills-row">
-                <span class="skills-label">Core Competencies</span>
-                <span class="skills-val">Full-Stack Web Development, Responsive &amp; Mobile-First Design, CRUD Operations, Authentication &amp; Authorization, API Integration, Version Control</span>
+                <span class="skills-label">Familiar With</span>
+                <span class="skills-val">Node.js, PHP, Java, MySQL, WordPress, Figma</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Projects</h2>
+            <div class="item">
+                <div class="item-head">
+                    <span class="item-title">AcadTrack — Teacher Management Portal</span>
+                    <span class="item-date">2026</span>
+                </div>
+                <div class="item-sub">Team Lead, 3-person team &middot; <a href="https://www.acadtrack.asia" target="_blank" rel="noopener noreferrer">acadtrack.asia</a> &middot; <em>Next.js, React, TypeScript, FastAPI, PostgreSQL</em></div>
+                <ul class="bullets">
+                    <li>Led a three-developer team building an academic management system for teachers: sections, attendance, class records, configurable grading, and analytics.</li>
+                    <li>Designed a Next.js frontend and an async FastAPI + SQLAlchemy API on Supabase PostgreSQL, with JWT-verified, role-scoped access for teachers and facilitators.</li>
+                    <li>Built an AI assistant and photo-to-score grading (Groq with Gemini fallback) and Excel exports in DepEd class-record format.</li>
+                    <li>Presented at the 2nd INNOVEX 2026 International Conference in Indonesia.</li>
+                </ul>
+            </div>
+            <div class="item">
+                <div class="item-head">
+                    <span class="item-title">AcadTrack — Facilitator Dashboard</span>
+                    <span class="item-date">2026</span>
+                </div>
+                <div class="item-sub"><a href="https://faci-panel.vercel.app" target="_blank" rel="noopener noreferrer">faci-panel.vercel.app</a> &middot; <em>Next.js, React, TypeScript, FastAPI, PWA</em></div>
+                <ul class="bullets">
+                    <li>Mobile-first, installable PWA for facilitators: attendance, activity records, and section performance, with Web Push notifications.</li>
+                    <li>Uses the same PostgreSQL database and grade weights as the teacher portal, so grades always match.</li>
+                    <li>Ported from vanilla JavaScript + Supabase to Next.js and a FastAPI backend with JWT auth and server-side data scoping.</li>
+                </ul>
+            </div>
+            <div class="item">
+                <div class="item-head">
+                    <span class="item-title">Shopper — E-Commerce PWA</span>
+                    <span class="item-date">2026</span>
+                </div>
+                <div class="item-sub"><a href="https://shopper-self-omega.vercel.app" target="_blank" rel="noopener noreferrer">shopper-self-omega.vercel.app</a> &middot; <em>JavaScript, Flask, PostgreSQL, PWA</em></div>
+                <ul class="bullets">
+                    <li>E-commerce PWA with product browsing, voice and barcode search, cart, wishlist, order history, support chat, and offline mode.</li>
+                </ul>
             </div>
         </section>
 
@@ -158,32 +214,21 @@
                     <span class="item-date">2026 — Present</span>
                 </div>
                 <ul class="bullets">
-                    <li>Build and deploy production-grade academic management systems end to end.</li>
-                    <li>Lead development of AcadTrack — handling enrollment, grading, and learning analytics.</li>
-                    <li>Manage product development, deployment, and client communication.</li>
+                    <li>Design, build, and deploy full-stack web apps end to end: database, REST API, UI, and hosting.</li>
+                    <li>Lead the 3-person MJR Vertext team on AcadTrack from planning through deployment and releases.</li>
                 </ul>
             </div>
         </section>
 
         <section>
-            <h2>Selected Projects</h2>
+            <h2>Education</h2>
             <div class="item">
                 <div class="item-head">
-                    <span class="item-title">Shopper — E-Commerce PWA</span>
-                    <span class="item-date">2026</span>
+                    <span class="item-title">Bachelor of Science in Information Technology</span>
+                    <span class="item-date">3rd Year — Ongoing</span>
                 </div>
-                <p>Full-featured e-commerce progressive web app with voice &amp; barcode search, cart,
-                   wishlist, and order history, plus offline support. <em>JavaScript, Flask, PostgreSQL, PWA.</em></p>
+                <div class="item-sub">PHINMA University of Iloilo</div>
             </div>
-        </section>
-
-        <section>
-            <h2>Achievements</h2>
-            <ul class="bullets">
-                <li>Showcased AcadTrack at the 2nd INNOVEX 2026 International Conference.</li>
-                <li>Delivered 3 production full-stack applications, including AI-powered dashboards,
-                    e-commerce PWAs, and academic management systems.</li>
-            </ul>
         </section>
     </div>
 </body>
