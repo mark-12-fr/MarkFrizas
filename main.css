@@ -410,32 +410,6 @@ body.light-mode .bgword { opacity: 0.55; }
     letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
 }
 
-/* --- JOURNEY: numbered steps --- */
-.timeline-section { padding: var(--section-pad) 0; background: var(--bg); }
-.timeline { counter-reset: step; max-width: 920px; border-top: 1px solid var(--border); }
-.timeline-item {
-    counter-increment: step;
-    display: grid; grid-template-columns: clamp(84px, 14vw, 140px) 1fr;
-    column-gap: clamp(16px, 3vw, 40px);
-    padding: 34px 0; border-bottom: 1px solid var(--border);
-}
-.timeline-dot { grid-row: 1 / span 2; }
-.timeline-dot::before {
-    content: counter(step, decimal-leading-zero);
-    font-family: var(--font-display); font-size: clamp(3.4rem, 8vw, 5.5rem); line-height: 0.85;
-    color: transparent; -webkit-text-stroke: 1.5px var(--primary);
-}
-.timeline-date {
-    font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--primary-text); margin-bottom: 8px;
-}
-.timeline-content h3 {
-    font-size: clamp(1.2rem, 2.4vw, 1.6rem); font-weight: 700;
-    letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 8px;
-}
-.timeline-content p { color: var(--text-muted); font-size: 0.98rem; line-height: 1.7; max-width: 640px; }
-
 /* --- SERVICES (paper, retro window cards) --- */
 .services-section { padding: var(--section-pad) 0; }
 .services-grid { counter-reset: svc; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -674,9 +648,6 @@ footer p { color: var(--text-muted); font-size: 0.85rem; }
     .skill-card { flex: 0 0 calc((100% - 20px) / 3); padding: 18px 8px 14px; }
     .about-stats { gap: 10px; }
     .stat { padding: 20px 6px; }
-
-    .timeline-item { grid-template-columns: 1fr; row-gap: 4px; padding: 28px 0; }
-    .timeline-dot { grid-row: auto; }
 
     .achievement-card { flex-direction: column; text-align: center; padding: 24px; }
     .project-info { padding: 20px; }
